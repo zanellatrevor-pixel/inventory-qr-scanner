@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
+
+  <base target="_top">
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    content="width=device-width, initial-scale=1"
   >
-
-  <title>C1-168 Inventory Scanner</title>
-
-  <!-- QR SCANNER LIBRARY -->
-  <script src="https://unpkg.com/html5-qrcode"></script>
 
   <style>
 
@@ -23,7 +19,8 @@
       --green: #63d13f;
       --panel: #0c1f31;
       --panel2: #10283d;
-      --muted: #9fb0bf;
+      --muted: #8ea0af;
+      --light: #eef1f4;
       --white: #ffffff;
     }
 
@@ -31,17 +28,11 @@
       box-sizing: border-box;
     }
 
-    html,
     body {
       margin: 0;
-      min-height: 100%;
-      background: #020d17;
-      color: white;
       font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-      min-height: 100vh;
+      background: var(--light);
+      color: #10243a;
     }
 
 
@@ -49,7 +40,7 @@
        HEADER
        ========================================= */
 
-    .header {
+    .appHeader {
       background:
         linear-gradient(
           135deg,
@@ -57,20 +48,19 @@
           var(--navy2)
         );
 
-      border-bottom: 4px solid var(--red);
+      color: white;
+
+      border-bottom:
+        4px solid var(--red);
 
       padding:
-        max(14px, env(safe-area-inset-top))
-        18px
-        14px;
+        14px 18px;
 
       display: flex;
       align-items: center;
       gap: 14px;
     }
 
-
-    /* CLICKABLE HOME LOGO */
 
     .homeLogo {
       display: flex;
@@ -79,8 +69,11 @@
       cursor: pointer;
       flex-shrink: 0;
       -webkit-tap-highlight-color: transparent;
-      transition: transform .12s ease, opacity .12s ease;
+      transition:
+        transform .12s ease,
+        opacity .12s ease;
     }
+
 
     .homeLogo:active {
       transform: scale(.94);
@@ -89,8 +82,8 @@
 
 
     .logo {
-      width: 70px;
-      height: 70px;
+      width: 74px;
+      height: 74px;
       object-fit: contain;
       border-radius: 50%;
       display: block;
@@ -99,19 +92,21 @@
 
     .headerText {
       flex: 1;
+      min-width: 0;
     }
 
 
-    .title {
-      font-size: 24px;
+    .headerTitle {
+      margin: 0;
+      font-size: 27px;
       font-weight: 900;
-      letter-spacing: .4px;
+      letter-spacing: .5px;
     }
 
 
-    .subtitle {
+    .headerSubtitle {
       margin-top: 4px;
-      font-size: 13px;
+      font-size: 14px;
       color: #c7d1d9;
     }
 
@@ -119,6 +114,7 @@
     .secure {
       font-size: 11px;
       color: #aebbc5;
+      white-space: nowrap;
     }
 
 
@@ -127,242 +123,9 @@
        ========================================= */
 
     .page {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 20px 16px 36px;
-    }
-
-
-    /* =========================================
-       INTRO
-       ========================================= */
-
-    .scanIntro {
-      text-align: center;
-      margin-bottom: 18px;
-    }
-
-
-    .scanIcon {
-      color: var(--green);
-      font-size: 38px;
-      margin-bottom: 5px;
-    }
-
-
-    .scanTitle {
-      font-size: 23px;
-      font-weight: 900;
-    }
-
-
-    .scanSubtitle {
-      margin-top: 7px;
-      color: #bdc8d0;
-      font-size: 14px;
-    }
-
-
-    /* =========================================
-       START BUTTON
-       ========================================= */
-
-    .startButton {
-      width: 100%;
-      padding: 17px;
-      border: none;
-      border-radius: 10px;
-      margin-bottom: 15px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #247c3b,
-          #1a612e
-        );
-
-      color: white;
-      font-size: 18px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-
-    /* =========================================
-       CAMERA
-       ========================================= */
-
-    .scannerShell {
-      position: relative;
-      background: #000;
-      border-radius: 15px;
-      overflow: hidden;
-      border: 1px solid #425466;
-
-      box-shadow:
-        0 8px 30px rgba(0,0,0,.35);
-    }
-
-
-    #reader {
-      width: 100%;
-      min-height: 320px;
-      background: #000;
-    }
-
-
-    #reader video {
-      width: 100% !important;
-      height: auto !important;
-      object-fit: cover !important;
-    }
-
-
-    /* =========================================
-       GREEN SCAN CORNERS
-       ========================================= */
-
-    .corner {
-      position: absolute;
-      width: 44px;
-      height: 44px;
-      z-index: 20;
-      pointer-events: none;
-    }
-
-
-    .tl {
-      top: 12px;
-      left: 12px;
-      border-top: 4px solid var(--green);
-      border-left: 4px solid var(--green);
-    }
-
-
-    .tr {
-      top: 12px;
-      right: 12px;
-      border-top: 4px solid var(--green);
-      border-right: 4px solid var(--green);
-    }
-
-
-    .bl {
-      bottom: 12px;
-      left: 12px;
-      border-bottom: 4px solid var(--green);
-      border-left: 4px solid var(--green);
-    }
-
-
-    .br {
-      bottom: 12px;
-      right: 12px;
-      border-bottom: 4px solid var(--green);
-      border-right: 4px solid var(--green);
-    }
-
-
-    /* =========================================
-       CAMERA CONTROLS
-       ========================================= */
-
-    .cameraControls {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-
-    button {
-      border: none;
-      border-radius: 8px;
-      padding: 14px;
-      font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-
-    .restartButton {
-      background: #315a71;
-      color: white;
-    }
-
-
-    .stopButton {
-      background: #46252a;
-      color: white;
-    }
-
-
-    /* =========================================
-       CAMERA INFO
-       ========================================= */
-
-    .cameraInfo {
-      margin-top: 12px;
-      padding: 10px;
-      border-radius: 8px;
-      background: #091725;
-      color: #9fb0bf;
-      font-size: 11px;
-      text-align: center;
-    }
-
-
-    /* =========================================
-       MANUAL NIIN
-       ========================================= */
-
-    .manualPanel {
-      margin-top: 16px;
-      padding: 15px;
-      border-radius: 11px;
-      border: 1px solid #314a5f;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--panel),
-          var(--panel2)
-        );
-    }
-
-
-    .manualLabel {
-      margin-bottom: 8px;
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .5px;
-    }
-
-
-    #manualNIIN {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #41586b;
-      border-radius: 8px;
-      font-size: 18px;
-      background: white;
-      color: #10243a;
-    }
-
-
-    #manualNIIN:focus {
-      outline: none;
-      border-color: var(--green);
-    }
-
-
-    .manualButton {
-      width: 100%;
-      margin-top: 10px;
-      background: #315a71;
-      color: white;
+      max-width: 760px;
+      margin: auto;
+      padding: 18px;
     }
 
 
@@ -370,100 +133,304 @@
        STATUS
        ========================================= */
 
-    .statusPanel {
-      margin-top: 16px;
-      padding: 17px;
+    #message {
+      margin-bottom: 16px;
+      padding: 13px;
+      border-radius: 9px;
+      background: #e9f5e9;
+      border: 1px solid #b6deb9;
+      color: #16752a;
       text-align: center;
-      border-radius: 11px;
-      border-top: 3px solid var(--red);
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--panel),
-          var(--panel2)
-        );
+      font-weight: 800;
     }
 
 
-    .statusMain {
-      color: var(--green);
-      font-size: 21px;
+    /* =========================================
+       LOOKUP PANEL
+       ========================================= */
+
+    .scanPanel {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow:
+        0 2px 8px rgba(0,0,0,.09);
+      margin-bottom: 18px;
+    }
+
+
+    .sectionTitle {
+      font-size: 12px;
+      font-weight: 900;
+      color: #566575;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      letter-spacing: .6px;
+    }
+
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccd3da;
+      border-radius: 7px;
+      font-size: 16px;
+      background: white;
+    }
+
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #0b4a78;
+      box-shadow:
+        0 0 0 2px rgba(11,74,120,.12);
+    }
+
+
+    .findButton {
+      margin-top: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 7px;
+      padding: 14px;
+      background: #062b4d;
+      color: white;
+      font-size: 17px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+
+    /* =========================================
+       ITEM CARD
+       ========================================= */
+
+    #itemCard {
+      display: none;
+    }
+
+
+    .itemPanel {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow:
+        0 3px 12px rgba(0,0,0,.10);
+    }
+
+
+    #itemName {
+      font-size: 29px;
+      font-weight: 900;
+      color: #092c4a;
+      margin-bottom: 18px;
+    }
+
+
+    .itemGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+
+    .dataLabel {
+      font-size: 11px;
+      color: #61707e;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-top: 10px;
+      letter-spacing: .4px;
+    }
+
+
+    .dataValue {
+      font-size: 20px;
+      font-weight: 900;
+      color: #102c4a;
+      margin-top: 2px;
+    }
+
+
+    /* =========================================
+       ON HAND
+       ========================================= */
+
+    .onHandPanel {
+      background:
+        linear-gradient(
+          135deg,
+          #082c4d,
+          #00315e
+        );
+
+      color: white;
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+    }
+
+
+    .onHandLabel {
+      font-size: 14px;
       font-weight: 900;
     }
 
 
-    .statusSub {
-      margin-top: 5px;
-      color: #c5d0d8;
-      font-size: 14px;
+    #onHand {
+      font-size: 58px;
+      font-weight: 900;
+      line-height: 1;
+      margin-top: 8px;
     }
 
 
-    .statusPanel.success {
+    .stockGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 10px;
+      background: #f7f8f9;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #dfe3e6;
+    }
+
+
+    .stockBox {
+      text-align: center;
+      padding: 12px;
+    }
+
+
+    .stockBox + .stockBox {
+      border-left:
+        1px solid #dfe3e6;
+    }
+
+
+    .needed {
+      color: #c51c1c;
+    }
+
+
+    .excess {
+      color: #18803a;
+    }
+
+
+    .stockNumber {
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+
+    /* =========================================
+       TRANSACTIONS
+       ========================================= */
+
+    .transactionSection {
+      margin-top: 18px;
+    }
+
+
+    .actionButtons {
+      display: grid;
+      grid-template-columns:
+        repeat(3, 1fr);
+      gap: 10px;
+    }
+
+
+    .actionButton {
+      border: none;
+      padding: 15px 8px;
+      border-radius: 8px;
+      color: white;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+
+    .issue {
       background:
         linear-gradient(
-          135deg,
-          #0e4a28,
-          #113c28
+          #df2525,
+          #c31515
+        );
+    }
+
+
+    .restock {
+      background:
+        linear-gradient(
+          #299443,
+          #18752f
+        );
+    }
+
+
+    .adjust {
+      background:
+        linear-gradient(
+          #e79a12,
+          #c97b00
         );
     }
 
 
     /* =========================================
-       REDIRECT OVERLAY
+       TRANSACTION FORM
        ========================================= */
 
-    #loadingOverlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-
-      background:
-        rgba(3, 23, 41, .97);
-
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-      padding: 30px;
+    .transactionForm {
+      margin-top: 14px;
+      background: #f8f9fa;
+      border: 1px solid #dfe3e6;
+      border-radius: 9px;
+      padding: 15px;
     }
 
 
-    .loadingCheck {
-      width: 74px;
-      height: 74px;
-      border-radius: 50%;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      background: #247c3b;
-      font-size: 42px;
-      margin-bottom: 20px;
+    .formGrid {
+      display: grid;
+      grid-template-columns:
+        120px 1fr;
+      gap: 12px;
     }
 
 
-    .loadingTitle {
-      font-size: 26px;
+    .formLabel {
+      font-size: 11px;
+      text-transform: uppercase;
       font-weight: 900;
+      color: #566575;
+      margin-bottom: 5px;
     }
 
 
-    .loadingNIIN {
-      margin-top: 8px;
-      font-size: 19px;
-      color: #9aff7b;
-      font-weight: 800;
-    }
+    /* =========================================
+       SCAN NEXT
+       ========================================= */
 
-
-    .loadingSub {
-      margin-top: 10px;
-      color: #c5d0d8;
-      font-size: 14px;
+    .scanNextButton {
+      width: 100%;
+      margin-top: 16px;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      background:
+        linear-gradient(
+          135deg,
+          #315a71,
+          #3e697d
+        );
+      color: white;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
     }
 
 
@@ -471,11 +438,14 @@
        FOOTER
        ========================================= */
 
-    .footer {
+    .footerNav {
       margin-top: 20px;
+      background: #06233c;
+      color: white;
       text-align: center;
-      color: #8295a5;
+      padding: 12px;
       font-size: 12px;
+      border-radius: 8px;
     }
 
 
@@ -483,27 +453,34 @@
        MOBILE
        ========================================= */
 
-    @media(max-width:520px) {
+    @media(max-width:600px) {
 
       .logo {
         width: 62px;
         height: 62px;
       }
 
-      .title {
-        font-size: 20px;
+      .headerTitle {
+        font-size: 22px;
+      }
+
+      .itemGrid {
+        grid-template-columns:
+          1fr;
+      }
+
+      .actionButtons {
+        grid-template-columns:
+          1fr;
+      }
+
+      .formGrid {
+        grid-template-columns:
+          1fr;
       }
 
       .secure {
         display: none;
-      }
-
-      #reader {
-        min-height: 290px;
-      }
-
-      .cameraControls {
-        grid-template-columns: 1fr;
       }
 
     }
@@ -520,23 +497,18 @@
      HEADER
      ========================================= -->
 
-<div class="header">
-
-  <!--
-    HOME BUTTON:
-    Clicking the Rainier logo always returns
-    to the scanner home page.
-  -->
+<div class="appHeader">
 
   <a
     href="https://zanellatrevor-pixel.github.io/inventory-qr-scanner/"
+    target="_top"
     class="homeLogo"
     aria-label="Return to Inventory Scanner Home"
   >
 
     <img
       class="logo"
-      src="rainier-dustoff.png"
+      src="https://zanellatrevor-pixel.github.io/inventory-qr-scanner/rainier-dustoff.png"
       alt="Rainier DUSTOFF"
     >
 
@@ -545,11 +517,11 @@
 
   <div class="headerText">
 
-    <div class="title">
+    <div class="headerTitle">
       C1-168 INVENTORY
     </div>
 
-    <div class="subtitle">
+    <div class="headerSubtitle">
       Det 2 • C Co • 1-168 GSAB
     </div>
 
@@ -564,117 +536,47 @@
 
 
 
-<!-- =========================================
-     MAIN PAGE
-     ========================================= -->
-
 <div class="page">
 
 
-  <div class="scanIntro">
+  <!-- =========================================
+       MESSAGE
+       ========================================= -->
 
-    <div class="scanIcon">
-      ⌗
-    </div>
-
-    <div class="scanTitle">
-      SCAN ITEM QR CODE
-    </div>
-
-    <div class="scanSubtitle">
-      Scan QR or enter NIIN manually
-    </div>
-
-  </div>
-
-
-
-  <!-- START SCANNER -->
-
-  <button
-    class="startButton"
-    onclick="startScanner()"
-  >
-    📷 START SCANNER
-  </button>
-
-
-
-  <!-- CAMERA -->
-
-  <div class="scannerShell">
-
-    <div id="reader"></div>
-
-    <div class="corner tl"></div>
-    <div class="corner tr"></div>
-    <div class="corner bl"></div>
-    <div class="corner br"></div>
-
-  </div>
-
-
-
-  <!-- CAMERA CONTROLS -->
-
-  <div class="cameraControls">
-
-    <button
-      class="restartButton"
-      onclick="restartScanner()"
-    >
-      ↻ RESTART CAMERA
-    </button>
-
-
-    <button
-      class="stopButton"
-      onclick="stopScanner()"
-    >
-      ■ STOP CAMERA
-    </button>
-
-  </div>
-
-
-
-  <div
-    id="cameraInfo"
-    class="cameraInfo"
-  >
-    Camera not started
+  <div id="message">
+    Ready
   </div>
 
 
 
   <!-- =========================================
-       MANUAL NIIN
+       SEARCH
        ========================================= -->
 
-  <div class="manualPanel">
+  <div class="scanPanel">
 
-    <div class="manualLabel">
-      Or Enter NIIN Manually
+    <div class="sectionTitle">
+      NIIN Lookup
     </div>
 
 
     <input
       type="text"
-      id="manualNIIN"
-      placeholder="Enter NIIN"
-      inputmode="numeric"
+      id="niin"
+      value="<?= scannedNIIN ?>"
+      placeholder="Scan or enter NIIN"
       autocomplete="off"
       onkeydown="
         if(event.key === 'Enter') {
-          submitManualNIIN();
+          lookupItem();
         }
       "
     >
 
 
     <button
-      class="manualButton"
-      onclick="submitManualNIIN()"
+      class="findButton"
+      onclick="lookupItem()"
     >
       FIND ITEM
     </button>
@@ -684,68 +586,251 @@
 
 
   <!-- =========================================
-       STATUS
+       ITEM
        ========================================= -->
 
-  <div
-    id="statusPanel"
-    class="statusPanel"
-  >
+  <div id="itemCard">
 
-    <div
-      id="statusMain"
-      class="statusMain"
-    >
-      READY
+    <div class="itemPanel">
+
+
+      <div id="itemName">
+      </div>
+
+
+      <div class="itemGrid">
+
+
+        <!-- LEFT COLUMN -->
+
+        <div>
+
+          <div class="dataLabel">
+            NIIN
+          </div>
+
+          <div
+            class="dataValue"
+            id="displayNIIN"
+          >
+          </div>
+
+
+          <div class="dataLabel">
+            LIN
+          </div>
+
+          <div
+            class="dataValue"
+            id="displayLIN"
+          >
+          </div>
+
+
+          <div class="dataLabel">
+            Location
+          </div>
+
+          <div
+            class="dataValue"
+            id="location"
+          >
+          </div>
+
+
+          <div class="dataLabel">
+            Target Quantity
+          </div>
+
+          <div
+            class="dataValue"
+            id="target"
+          >
+          </div>
+
+        </div>
+
+
+
+        <!-- RIGHT COLUMN -->
+
+        <div>
+
+
+          <div class="onHandPanel">
+
+            <div class="onHandLabel">
+              CURRENT ON HAND
+            </div>
+
+            <div id="onHand">
+              —
+            </div>
+
+          </div>
+
+
+          <div class="stockGrid">
+
+
+            <div class="stockBox needed">
+
+              <strong>
+                NEEDED
+              </strong>
+
+              <div
+                class="stockNumber"
+                id="needed"
+              >
+                0
+              </div>
+
+            </div>
+
+
+            <div class="stockBox excess">
+
+              <strong>
+                EXCESS
+              </strong>
+
+              <div
+                class="stockNumber"
+                id="excess"
+              >
+                0
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- =========================================
+           TRANSACTIONS
+           ========================================= -->
+
+      <div class="transactionSection">
+
+
+        <div class="actionButtons">
+
+
+          <button
+            class="actionButton issue"
+            onclick="submitTransaction('ISSUE')"
+          >
+            − ISSUE
+          </button>
+
+
+          <button
+            class="actionButton restock"
+            onclick="submitTransaction('RESTOCK')"
+          >
+            + RESTOCK
+          </button>
+
+
+          <button
+            class="actionButton adjust"
+            onclick="submitTransaction('ADJUSTMENT')"
+          >
+            ADJUST COUNT
+          </button>
+
+
+        </div>
+
+
+
+        <div class="transactionForm">
+
+
+          <div class="formGrid">
+
+
+            <div>
+
+              <div class="formLabel">
+                Quantity
+              </div>
+
+              <input
+                type="number"
+                id="qty"
+                min="1"
+                step="1"
+                value="1"
+              >
+
+            </div>
+
+
+            <div>
+
+              <div class="formLabel">
+                Initials / User
+              </div>
+
+              <input
+                type="text"
+                id="initials"
+                placeholder="Example: TZ"
+              >
+
+            </div>
+
+
+          </div>
+
+
+          <div class="formLabel">
+            Notes
+          </div>
+
+
+          <textarea
+            id="notes"
+            placeholder="Optional notes"
+          ></textarea>
+
+
+        </div>
+
+
+
+        <!-- SCAN NEXT ITEM -->
+
+        <button
+          class="scanNextButton"
+          onclick="goHome()"
+        >
+          SCAN NEXT ITEM
+        </button>
+
+
+      </div>
+
+
     </div>
 
-
-    <div
-      id="statusSub"
-      class="statusSub"
-    >
-      Tap START SCANNER or enter a NIIN
-    </div>
-
   </div>
 
 
 
-  <div class="footer">
-    🔒 Secure • Rainier DUSTOFF Inventory System
+  <div class="footerNav">
+    DET 2 • C1-168 MES INVENTORY SYSTEM
   </div>
 
-
-</div>
-
-
-
-<!-- =========================================
-     REDIRECT OVERLAY
-     ========================================= -->
-
-<div id="loadingOverlay">
-
-  <div class="loadingCheck">
-    ✓
-  </div>
-
-
-  <div class="loadingTitle">
-    ITEM FOUND
-  </div>
-
-
-  <div
-    id="loadingNIIN"
-    class="loadingNIIN"
-  >
-  </div>
-
-
-  <div class="loadingSub">
-    Opening live inventory record...
-  </div>
 
 </div>
 
@@ -754,700 +839,445 @@
 <script>
 
 
-/* =========================================
-   URLS
-   ========================================= */
-
-
-/*
-GitHub scanner home page.
-*/
-
 const SCANNER_HOME_URL =
   "https://zanellatrevor-pixel.github.io/inventory-qr-scanner/";
 
 
-/*
-Live Google Apps Script inventory app.
-
-IMPORTANT:
-Keep this pointed at the production
-deployment connected to your live sheet.
-*/
-
-const INVENTORY_APP_URL =
-  "https://script.google.com/macros/s/AKfycbzbxVUD35d6WIDDeMSCuFfZmSfnb7LNtvvmWC76K6w-L6334ZKwB5EO_uM1wFABdoWV/exec";
+let currentNIIN = "";
 
 
 
 /* =========================================
-   VARIABLES
+   HOME
    ========================================= */
 
-let scanner = null;
+function goHome() {
 
-let scannerRunning = false;
-
-let scanComplete = false;
-
-let redirectStarted = false;
-
-
-
-/* =========================================
-   EXTRACT NIIN
-   ========================================= */
-
-function extractNIIN(data) {
-
-  let niin = "";
-
-
-  try {
-
-    const url =
-      new URL(data);
-
-
-    niin =
-      url.searchParams.get("niin") || "";
-
-  }
-
-
-  catch(error) {
-
-    niin =
-      String(data || "");
-
-  }
-
-
-  return String(niin)
-    .replace(/[^0-9]/g, "");
+  window.top.location.href =
+    SCANNER_HOME_URL;
 
 }
 
 
 
 /* =========================================
-   OPEN INVENTORY ITEM
+   AUTOLOAD
    ========================================= */
 
-function openInventoryItem(niin) {
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
 
+    const niin =
+      document
+        .getElementById("niin")
+        .value
+        .trim();
 
-  if (redirectStarted) {
+    if (niin) {
 
-    return;
+      lookupItem();
 
-  }
+    } else {
 
-
-  redirectStarted = true;
-
-  scanComplete = true;
-
-
-  /*
-  Save the NIIN locally as backup.
-  */
-
-  localStorage.setItem(
-    "lastScannedNIIN",
-    niin
-  );
-
-
-  /*
-  Display transition screen.
-  */
-
-  document
-    .getElementById("loadingNIIN")
-    .textContent =
-    "NIIN " + niin;
-
-
-  document
-    .getElementById("loadingOverlay")
-    .style
-    .display =
-    "flex";
-
-
-  /*
-  Build live inventory URL.
-  */
-
-  const destination =
-    INVENTORY_APP_URL
-    +
-    "?niin="
-    +
-    encodeURIComponent(niin);
-
-
-  /*
-  Redirect to inventory item.
-  */
-
-  setTimeout(
-
-    function() {
-
-      window.location.href =
-        destination;
-
-    },
-
-    300
-
-  );
-
-}
-
-
-
-/* =========================================
-   QR SUCCESS
-   ========================================= */
-
-function onScanSuccess(decodedText) {
-
-
-  if (
-    scanComplete ||
-    redirectStarted
-  ) {
-
-    return;
-
-  }
-
-
-  const niin =
-    extractNIIN(decodedText);
-
-
-  if (!niin) {
-
-
-    setStatus(
-      "QR DETECTED",
-      "QR detected, but no NIIN was found.",
-      false
-    );
-
-
-    return;
-
-  }
-
-
-  /*
-  Immediately open inventory item.
-  */
-
-  openInventoryItem(niin);
-
-}
-
-
-
-/* =========================================
-   CHOOSE BEST REAR CAMERA
-   ========================================= */
-
-function chooseBestCamera(cameras) {
-
-
-  if (
-    !cameras ||
-    cameras.length === 0
-  ) {
-
-    return null;
-
-  }
-
-
-  const ranked =
-    cameras.map(
-
-      function(camera) {
-
-
-        const label =
-          String(camera.label || "")
-          .toLowerCase();
-
-
-        let score = 0;
-
-
-        /*
-        Prefer rear-facing cameras.
-        */
-
-        if (label.includes("back")) {
-          score += 100;
-        }
-
-
-        if (label.includes("rear")) {
-          score += 100;
-        }
-
-
-        /*
-        Prefer standard wide camera.
-        */
-
-        if (label.includes("wide")) {
-          score += 30;
-        }
-
-
-        if (label.includes("dual")) {
-          score += 15;
-        }
-
-
-        /*
-        Avoid selfie/front camera.
-        */
-
-        if (label.includes("front")) {
-          score -= 200;
-        }
-
-
-        if (label.includes("selfie")) {
-          score -= 200;
-        }
-
-
-        /*
-        Avoid specialty lenses
-        when possible.
-        */
-
-        if (label.includes("ultra")) {
-          score -= 80;
-        }
-
-
-        if (label.includes("telephoto")) {
-          score -= 80;
-        }
-
-
-        if (label.includes("macro")) {
-          score -= 80;
-        }
-
-
-        return {
-
-          camera: camera,
-
-          score: score
-
-        };
-
-      }
-
-    );
-
-
-  ranked.sort(
-
-    function(a, b) {
-
-      return b.score - a.score;
-
-    }
-
-  );
-
-
-  return ranked[0].camera;
-
-}
-
-
-
-/* =========================================
-   START SCANNER
-   ========================================= */
-
-async function startScanner() {
-
-
-  scanComplete = false;
-
-  redirectStarted = false;
-
-
-  setStatus(
-    "CAMERA PERMISSION",
-    "Allow camera access if Safari asks.",
-    false
-  );
-
-
-  try {
-
-
-    /*
-    Stop existing camera if necessary.
-    */
-
-    if (
-      scannerRunning &&
-      scanner
-    ) {
-
-
-      try {
-
-        await scanner.stop();
-
-      }
-
-      catch(error) {}
-
-
-      scannerRunning = false;
-
-    }
-
-
-
-    /*
-    Create scanner.
-    */
-
-    scanner =
-      new Html5Qrcode("reader");
-
-
-
-    /*
-    Get available cameras.
-    */
-
-    const cameras =
-      await Html5Qrcode.getCameras();
-
-
-
-    if (
-      !cameras ||
-      cameras.length === 0
-    ) {
-
-
-      throw new Error(
-        "No cameras detected."
+      showMessage(
+        "READY"
       );
 
     }
 
-
-
-    /*
-    Choose preferred rear camera.
-    */
-
-    const bestCamera =
-      chooseBestCamera(cameras);
-
-
-    let cameraConfig;
-
-
-
-    if (bestCamera) {
-
-
-      cameraConfig =
-        bestCamera.id;
-
-
-      document
-        .getElementById("cameraInfo")
-        .textContent =
-        "Camera: "
-        +
-        (
-          bestCamera.label ||
-          "Rear Camera"
-        );
-
-    }
-
-
-    else {
-
-
-      cameraConfig = {
-
-        facingMode:
-          "environment"
-
-      };
-
-
-      document
-        .getElementById("cameraInfo")
-        .textContent =
-        "Camera: Rear / Environment";
-
-    }
-
-
-
-    /*
-    Full-frame QR scanning.
-    */
-
-    const scanConfig = {
-
-      fps: 10
-
-    };
-
-
-
-    await scanner.start(
-
-      cameraConfig,
-
-      scanConfig,
-
-      onScanSuccess,
-
-      function(errorMessage) {
-
-        /*
-        Normal frame misses are expected.
-        Scanner continues automatically.
-        */
-
-      }
-
-    );
-
-
-
-    scannerRunning = true;
-
-
-
-    setStatus(
-      "READY TO SCAN",
-      "Point the camera at an inventory QR code.",
-      false
-    );
-
-
   }
+);
 
 
-  catch(error) {
+
+/* =========================================
+   LOOKUP
+   ========================================= */
+
+function lookupItem() {
 
 
-    console.error(error);
-
-
-    scannerRunning = false;
-
-
+  const niin =
     document
-      .getElementById("cameraInfo")
-      .textContent =
-      "Camera unavailable";
-
-
-    setStatus(
-      "CAMERA ACCESS FAILED",
-      String(
-        error.message ||
-        error
-      ),
-      false
-    );
-
-
-  }
-
-}
-
-
-
-/* =========================================
-   STOP CAMERA
-   ========================================= */
-
-async function stopScanner() {
-
-
-  if (
-    !scanner ||
-    !scannerRunning
-  ) {
-
-    return;
-
-  }
-
-
-  try {
-
-
-    await scanner.stop();
-
-
-    scannerRunning = false;
-
-
-    document
-      .getElementById("cameraInfo")
-      .textContent =
-      "Camera stopped";
-
-
-    setStatus(
-      "CAMERA STOPPED",
-      "Tap START SCANNER to begin again.",
-      false
-    );
-
-
-  }
-
-
-  catch(error) {
-
-    console.error(error);
-
-  }
-
-}
-
-
-
-/* =========================================
-   RESTART CAMERA
-   ========================================= */
-
-async function restartScanner() {
-
-
-  await stopScanner();
-
-
-  await startScanner();
-
-}
-
-
-
-/* =========================================
-   MANUAL NIIN
-   ========================================= */
-
-function submitManualNIIN() {
-
-
-  let niin =
-    String(
-
-      document
-        .getElementById("manualNIIN")
-        .value ||
-
-      ""
-
-    )
-    .replace(
-      /[^0-9]/g,
-      ""
-    );
+      .getElementById("niin")
+      .value
+      .trim();
 
 
   if (!niin) {
 
-
-    setStatus(
-      "ENTER NIIN",
-      "Enter a valid NIIN.",
-      false
+    showMessage(
+      "Enter or scan a NIIN."
     );
 
-
     return;
-
   }
 
 
-  /*
-  Manual entry goes through
-  the exact same inventory route
-  as a QR scan.
-  */
+  showMessage(
+    "Loading inventory..."
+  );
 
-  openInventoryItem(niin);
+
+  google.script.run
+
+    .withSuccessHandler(
+      function(item) {
+
+
+        if (
+          !item ||
+          item.found !== true
+        ) {
+
+
+          document
+            .getElementById("itemCard")
+            .style.display =
+            "none";
+
+
+          showMessage(
+            item &&
+            item.message
+              ? item.message
+              : "Item not found."
+          );
+
+
+          return;
+
+        }
+
+
+        currentNIIN =
+          String(item.niin).trim();
+
+
+        setText(
+          "niin",
+          currentNIIN,
+          true
+        );
+
+
+        setText(
+          "itemName",
+          item.commonItem
+        );
+
+
+        setText(
+          "displayNIIN",
+          item.niin
+        );
+
+
+        setText(
+          "displayLIN",
+          item.lin
+        );
+
+
+        setText(
+          "target",
+          item.targetQty
+        );
+
+
+        setText(
+          "onHand",
+          item.onHand
+        );
+
+
+        setText(
+          "needed",
+          item.needed
+        );
+
+
+        setText(
+          "excess",
+          item.excess
+        );
+
+
+        setText(
+          "location",
+          item.location ||
+          "Not assigned"
+        );
+
+
+        document
+          .getElementById("itemCard")
+          .style.display =
+          "block";
+
+
+        showMessage(
+          "✓ ITEM LOADED"
+        );
+
+      }
+    )
+
+    .withFailureHandler(
+      function(error) {
+
+        showMessage(
+          "Lookup error: "
+          +
+          getErrorMessage(error)
+        );
+
+      }
+    )
+
+    .getItemByNIIN(
+      niin
+    );
 
 }
 
 
 
 /* =========================================
-   STATUS
+   TRANSACTION
    ========================================= */
 
-function setStatus(
-  main,
-  sub,
-  success
+function submitTransaction(
+  action
 ) {
 
 
-  const panel =
+  if (!currentNIIN) {
+
+    showMessage(
+      "Scan or find an item first."
+    );
+
+    return;
+  }
+
+
+  const qty =
+    Number(
+      document
+        .getElementById("qty")
+        .value
+    );
+
+
+  const initials =
     document
-      .getElementById("statusPanel");
+      .getElementById("initials")
+      .value
+      .trim();
 
 
-  document
-    .getElementById("statusMain")
-    .textContent =
-    main;
+  const notes =
+    document
+      .getElementById("notes")
+      .value
+      .trim();
 
 
-  document
-    .getElementById("statusSub")
-    .textContent =
-    sub;
+  if (
+    !Number.isFinite(qty) ||
+    qty <= 0
+  ) {
+
+    showMessage(
+      "Enter a valid quantity."
+    );
+
+    return;
+  }
 
 
-  if (success) {
+  showMessage(
+    "Processing "
+    +
+    action
+    +
+    "..."
+  );
 
-    panel
-      .classList
-      .add("success");
+
+  google.script.run
+
+    .withSuccessHandler(
+      function(result) {
+
+
+        if (
+          !result ||
+          result.success !== true
+        ) {
+
+          showMessage(
+            "Transaction was not completed."
+          );
+
+          return;
+        }
+
+
+        setText(
+          "onHand",
+          result.onHand
+        );
+
+
+        setText(
+          "needed",
+          result.needed
+        );
+
+
+        setText(
+          "excess",
+          result.excess
+        );
+
+
+        document
+          .getElementById("qty")
+          .value =
+          "1";
+
+
+        document
+          .getElementById("notes")
+          .value =
+          "";
+
+
+        showMessage(
+          "✓ "
+          +
+          result.commonItem
+          +
+          " UPDATED: "
+          +
+          result.previousQty
+          +
+          " → "
+          +
+          result.newQty
+        );
+
+      }
+    )
+
+    .withFailureHandler(
+      function(error) {
+
+        showMessage(
+          "Transaction error: "
+          +
+          getErrorMessage(error)
+        );
+
+      }
+    )
+
+    .processTransaction(
+
+      currentNIIN,
+
+      action,
+
+      qty,
+
+      initials,
+
+      notes
+
+    );
+
+}
+
+
+
+/* =========================================
+   HELPERS
+   ========================================= */
+
+function setText(
+  id,
+  value,
+  input
+) {
+
+
+  const result =
+    value === null ||
+    value === undefined ||
+    value === ""
+      ? "—"
+      : String(value);
+
+
+  const element =
+    document.getElementById(id);
+
+
+  if (input) {
+
+    element.value =
+      result === "—"
+        ? ""
+        : result;
 
   }
 
   else {
 
-    panel
-      .classList
-      .remove("success");
+    element.textContent =
+      result;
 
   }
+
+}
+
+
+
+function getErrorMessage(
+  error
+) {
+
+  if (
+    error &&
+    error.message
+  ) {
+
+    return String(
+      error.message
+    );
+
+  }
+
+  return String(
+    error ||
+    "Unknown error"
+  );
+
+}
+
+
+
+function showMessage(
+  text
+) {
+
+  document
+    .getElementById("message")
+    .textContent =
+    String(text);
 
 }
 
