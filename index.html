@@ -12,7 +12,6 @@
 
   <title>C1-168 Inventory Scanner</title>
 
-  <!-- QR SCANNER LIBRARY -->
   <script src="https://unpkg.com/html5-qrcode"></script>
 
   <style>
@@ -46,9 +45,9 @@
     }
 
 
-    /* =========================================
+    /* ===============================
        HEADER
-       ========================================= */
+       =============================== */
 
     .header {
 
@@ -117,9 +116,9 @@
     }
 
 
-    /* =========================================
-       MAIN PAGE
-       ========================================= */
+    /* ===============================
+       PAGE
+       =============================== */
 
     .page {
 
@@ -135,9 +134,9 @@
     }
 
 
-    /* =========================================
-       SCANNER INTRO
-       ========================================= */
+    /* ===============================
+       INTRO
+       =============================== */
 
     .scanIntro {
 
@@ -176,9 +175,9 @@
     }
 
 
-    /* =========================================
-       START SCANNER
-       ========================================= */
+    /* ===============================
+       START BUTTON
+       =============================== */
 
     .startButton {
 
@@ -210,9 +209,9 @@
     }
 
 
-    /* =========================================
+    /* ===============================
        CAMERA
-       ========================================= */
+       =============================== */
 
     .scannerShell {
 
@@ -254,9 +253,9 @@
     }
 
 
-    /* =========================================
-       GREEN SCAN CORNERS
-       ========================================= */
+    /* ===============================
+       SCAN CORNERS
+       =============================== */
 
     .corner {
 
@@ -325,9 +324,9 @@
     }
 
 
-    /* =========================================
+    /* ===============================
        CAMERA CONTROLS
-       ========================================= */
+       =============================== */
 
     .cameraControls {
 
@@ -360,8 +359,7 @@
 
     .restartButton {
 
-      background:
-        #315a71;
+      background: #315a71;
 
       color: white;
 
@@ -369,17 +367,16 @@
 
     .stopButton {
 
-      background:
-        #46252a;
+      background: #46252a;
 
       color: white;
 
     }
 
 
-    /* =========================================
+    /* ===============================
        CAMERA INFO
-       ========================================= */
+       =============================== */
 
     .cameraInfo {
 
@@ -400,9 +397,9 @@
     }
 
 
-    /* =========================================
-       MANUAL NIIN
-       ========================================= */
+    /* ===============================
+       MANUAL ENTRY
+       =============================== */
 
     .manualPanel {
 
@@ -474,17 +471,16 @@
 
       margin-top: 10px;
 
-      background:
-        #315a71;
+      background: #315a71;
 
       color: white;
 
     }
 
 
-    /* =========================================
+    /* ===============================
        STATUS
-       ========================================= */
+       =============================== */
 
     .statusPanel {
 
@@ -540,9 +536,9 @@
     }
 
 
-    /* =========================================
-       LOADING OVERLAY
-       ========================================= */
+    /* ===============================
+       REDIRECT OVERLAY
+       =============================== */
 
     #loadingOverlay {
 
@@ -550,15 +546,12 @@
 
       position: fixed;
 
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      inset: 0;
 
       z-index: 9999;
 
       background:
-        rgba(3, 23, 41, .96);
+        rgba(3, 23, 41, .97);
 
       align-items: center;
 
@@ -585,8 +578,7 @@
 
       justify-content: center;
 
-      background:
-        #247c3b;
+      background: #247c3b;
 
       font-size: 42px;
 
@@ -625,9 +617,9 @@
     }
 
 
-    /* =========================================
+    /* ===============================
        FOOTER
-       ========================================= */
+       =============================== */
 
     .footer {
 
@@ -642,42 +634,31 @@
     }
 
 
-    /* =========================================
+    /* ===============================
        MOBILE
-       ========================================= */
+       =============================== */
 
     @media(max-width:520px) {
 
       .logo {
-
         width: 62px;
         height: 62px;
-
       }
 
       .title {
-
         font-size: 20px;
-
       }
 
       .secure {
-
         display: none;
-
       }
 
       #reader {
-
         min-height: 290px;
-
       }
 
       .cameraControls {
-
-        grid-template-columns:
-          1fr;
-
+        grid-template-columns: 1fr;
       }
 
     }
@@ -691,9 +672,9 @@
 <body>
 
 
-<!-- =========================================
+<!-- ===============================
      HEADER
-     ========================================= -->
+     =============================== -->
 
 <div class="header">
 
@@ -723,10 +704,6 @@
 
 
 
-<!-- =========================================
-     PAGE
-     ========================================= -->
-
 <div class="page">
 
 
@@ -748,7 +725,7 @@
 
 
 
-  <!-- START SCANNER -->
+  <!-- START -->
 
   <button
     class="startButton"
@@ -871,9 +848,9 @@
 
 
 
-<!-- =========================================
-     LOADING / REDIRECT SCREEN
-     ========================================= -->
+<!-- ===============================
+     REDIRECT OVERLAY
+     =============================== -->
 
 <div id="loadingOverlay">
 
@@ -892,7 +869,7 @@
   </div>
 
   <div class="loadingSub">
-    Opening inventory record...
+    Opening live inventory record...
   </div>
 
 </div>
@@ -902,57 +879,38 @@
 <script>
 
 
-/* =========================================
-   INVENTORY APPLICATION URL
-
-   This is the working production deployment.
-   ========================================= */
+/* ===============================
+   IMPORTANT:
+   LIVE PRODUCTION INVENTORY APP
+   =============================== */
 
 const INVENTORY_APP_URL =
-  "https://script.google.com/macros/s/AKfycbxj7jacUxVhAnMOgguKCWc-QOhlB0QZLb9T0QFMPTwX4v5cCICtQB_UkBY5gt1ZeJ8t/exec";
+  "https://script.google.com/macros/s/AKfycbzbxVUD35d6WIDDeMSCuFfZmSfnb7LNtvvmWC76K6w-L6334ZKwB5EO_uM1wFABdoWV/exec";
 
 
 
-let scanner =
-  null;
+let scanner = null;
 
+let scannerRunning = false;
 
-let scannerRunning =
-  false;
+let scanComplete = false;
 
-
-let scanComplete =
-  false;
-
-
-let redirectStarted =
-  false;
+let redirectStarted = false;
 
 
 
-/* =========================================
-   EXTRACT NIIN FROM QR
-
-   Supports:
-
-   015326656
-
-   OR
-
-   https://....../exec?niin=015326656
-   ========================================= */
+/* ===============================
+   EXTRACT NIIN
+   =============================== */
 
 function extractNIIN(
   data
 ) {
 
-
-  let niin =
-    "";
+  let niin = "";
 
 
   try {
-
 
     const url =
       new URL(
@@ -961,52 +919,42 @@ function extractNIIN(
 
 
     niin =
-      url
-        .searchParams
-        .get(
-          "niin"
-        ) || "";
-
+      url.searchParams.get(
+        "niin"
+      ) || "";
 
   }
 
 
   catch(error) {
 
-
     niin =
       String(
         data || ""
       );
 
-
   }
 
 
-  niin =
-    String(
-      niin
-    )
-    .replace(
-      /[^0-9]/g,
-      ""
-    );
-
-
-  return niin;
+  return String(
+    niin
+  )
+  .replace(
+    /[^0-9]/g,
+    ""
+  );
 
 }
 
 
 
-/* =========================================
+/* ===============================
    OPEN INVENTORY ITEM
-   ========================================= */
+   =============================== */
 
 function openInventoryItem(
   niin
 ) {
-
 
   if (
     redirectStarted
@@ -1017,28 +965,15 @@ function openInventoryItem(
   }
 
 
-  redirectStarted =
-    true;
+  redirectStarted = true;
 
-
-  scanComplete =
-    true;
-
-
-  /*
-  Save NIIN locally as backup.
-  */
+  scanComplete = true;
 
 
   localStorage.setItem(
     "lastScannedNIIN",
     niin
   );
-
-
-  /*
-  Show transition screen.
-  */
 
 
   document
@@ -1058,11 +993,6 @@ function openInventoryItem(
     "flex";
 
 
-  /*
-  Build inventory URL.
-  */
-
-
   const destination =
     INVENTORY_APP_URL
     +
@@ -1073,27 +1003,17 @@ function openInventoryItem(
     );
 
 
-  /*
-  Brief visual transition.
-
-  Then immediately move to
-  inventory application.
-  */
-
-
   setTimeout(
 
     function() {
-
 
       window.location.replace(
         destination
       );
 
-
     },
 
-    350
+    300
 
   );
 
@@ -1101,9 +1021,9 @@ function openInventoryItem(
 
 
 
-/* =========================================
-   QR SCAN SUCCESS
-   ========================================= */
+/* ===============================
+   QR SUCCESS
+   =============================== */
 
 function onScanSuccess(
   decodedText
@@ -1133,7 +1053,7 @@ function onScanSuccess(
 
     setStatus(
       "QR DETECTED",
-      "QR read successfully, but no NIIN was found.",
+      "QR detected, but no NIIN was found.",
       false
     );
 
@@ -1141,17 +1061,6 @@ function onScanSuccess(
     return;
 
   }
-
-
-  /*
-  THIS IS THE IMPORTANT PART:
-
-  The scanner no longer displays
-  the NIIN at the bottom.
-
-  It immediately opens the
-  inventory item.
-  */
 
 
   openInventoryItem(
@@ -1162,9 +1071,9 @@ function onScanSuccess(
 
 
 
-/* =========================================
-   CHOOSE BEST CAMERA
-   ========================================= */
+/* ===============================
+   CHOOSE CAMERA
+   =============================== */
 
 function chooseBestCamera(
   cameras
@@ -1194,13 +1103,7 @@ function chooseBestCamera(
           .toLowerCase();
 
 
-        let score =
-          0;
-
-
-        /*
-        Strongly prefer rear cameras.
-        */
+        let score = 0;
 
 
         if (
@@ -1209,8 +1112,7 @@ function chooseBestCamera(
           )
         ) {
 
-          score +=
-            100;
+          score += 100;
 
         }
 
@@ -1221,15 +1123,9 @@ function chooseBestCamera(
           )
         ) {
 
-          score +=
-            100;
+          score += 100;
 
         }
-
-
-        /*
-        Prefer standard wide camera.
-        */
 
 
         if (
@@ -1238,8 +1134,7 @@ function chooseBestCamera(
           )
         ) {
 
-          score +=
-            30;
+          score += 30;
 
         }
 
@@ -1250,15 +1145,9 @@ function chooseBestCamera(
           )
         ) {
 
-          score +=
-            15;
+          score += 15;
 
         }
-
-
-        /*
-        Avoid front/selfie.
-        */
 
 
         if (
@@ -1267,8 +1156,7 @@ function chooseBestCamera(
           )
         ) {
 
-          score -=
-            200;
+          score -= 200;
 
         }
 
@@ -1279,16 +1167,9 @@ function chooseBestCamera(
           )
         ) {
 
-          score -=
-            200;
+          score -= 200;
 
         }
-
-
-        /*
-        Avoid specialty lenses
-        when possible.
-        */
 
 
         if (
@@ -1297,8 +1178,7 @@ function chooseBestCamera(
           )
         ) {
 
-          score -=
-            80;
+          score -= 80;
 
         }
 
@@ -1309,8 +1189,7 @@ function chooseBestCamera(
           )
         ) {
 
-          score -=
-            80;
+          score -= 80;
 
         }
 
@@ -1321,8 +1200,7 @@ function chooseBestCamera(
           )
         ) {
 
-          score -=
-            80;
+          score -= 80;
 
         }
 
@@ -1362,19 +1240,16 @@ function chooseBestCamera(
 
 
 
-/* =========================================
+/* ===============================
    START SCANNER
-   ========================================= */
+   =============================== */
 
 async function startScanner() {
 
 
-  scanComplete =
-    false;
+  scanComplete = false;
 
-
-  redirectStarted =
-    false;
+  redirectStarted = false;
 
 
   setStatus(
@@ -1385,11 +1260,6 @@ async function startScanner() {
 
 
   try {
-
-
-    /*
-    Stop existing scanner.
-    */
 
 
     if (
@@ -1414,27 +1284,15 @@ async function startScanner() {
 
 
 
-    /*
-    Create scanner.
-    */
-
-
     scanner =
       new Html5Qrcode(
         "reader"
       );
 
 
-
-    /*
-    Ask browser for available cameras.
-    */
-
-
     const cameras =
       await Html5Qrcode
         .getCameras();
-
 
 
     if (
@@ -1449,11 +1307,6 @@ async function startScanner() {
 
     }
 
-
-
-    /*
-    Pick best rear camera.
-    */
 
 
     const bestCamera =
@@ -1513,18 +1366,9 @@ async function startScanner() {
 
 
 
-    /*
-    SIMPLE FULL-FRAME SCANNING
-
-    This intentionally avoids qrbox
-    and forced aspect ratio.
-    */
-
-
     const scanConfig = {
 
-      fps:
-        10
+      fps: 10
 
     };
 
@@ -1541,10 +1385,8 @@ async function startScanner() {
       function(errorMessage) {
 
         /*
-        Normal frame misses are expected.
-
-        Do nothing and allow scanner
-        to continue searching.
+        Normal failed frames are ignored.
+        Scanner continues automatically.
         */
 
       }
@@ -1552,10 +1394,7 @@ async function startScanner() {
     );
 
 
-
-    scannerRunning =
-      true;
-
+    scannerRunning = true;
 
 
     setStatus(
@@ -1576,8 +1415,7 @@ async function startScanner() {
     );
 
 
-    scannerRunning =
-      false;
+    scannerRunning = false;
 
 
     document
@@ -1604,9 +1442,9 @@ async function startScanner() {
 
 
 
-/* =========================================
+/* ===============================
    STOP CAMERA
-   ========================================= */
+   =============================== */
 
 async function stopScanner() {
 
@@ -1627,8 +1465,7 @@ async function stopScanner() {
     await scanner.stop();
 
 
-    scannerRunning =
-      false;
+    scannerRunning = false;
 
 
     document
@@ -1641,7 +1478,7 @@ async function stopScanner() {
 
     setStatus(
       "CAMERA STOPPED",
-      "Tap START SCANNER to scan another item.",
+      "Tap START SCANNER to begin again.",
       false
     );
 
@@ -1651,11 +1488,9 @@ async function stopScanner() {
 
   catch(error) {
 
-
     console.error(
       error
     );
-
 
   }
 
@@ -1663,9 +1498,9 @@ async function stopScanner() {
 
 
 
-/* =========================================
+/* ===============================
    RESTART CAMERA
-   ========================================= */
+   =============================== */
 
 async function restartScanner() {
 
@@ -1679,12 +1514,9 @@ async function restartScanner() {
 
 
 
-/* =========================================
+/* ===============================
    MANUAL NIIN
-
-   Manual entry uses EXACTLY the same
-   inventory handoff as QR scanning.
-   ========================================= */
+   =============================== */
 
 function submitManualNIIN() {
 
@@ -1700,11 +1532,8 @@ function submitManualNIIN() {
 
       ""
 
-    );
-
-
-  niin =
-    niin.replace(
+    )
+    .replace(
       /[^0-9]/g,
       ""
     );
@@ -1727,11 +1556,6 @@ function submitManualNIIN() {
   }
 
 
-  /*
-  Same destination as QR scan.
-  */
-
-
   openInventoryItem(
     niin
   );
@@ -1740,9 +1564,9 @@ function submitManualNIIN() {
 
 
 
-/* =========================================
-   STATUS DISPLAY
-   ========================================= */
+/* ===============================
+   STATUS
+   =============================== */
 
 function setStatus(
   main,
@@ -1778,26 +1602,21 @@ function setStatus(
     success
   ) {
 
-
     panel
       .classList
       .add(
         "success"
       );
 
-
   }
 
-
   else {
-
 
     panel
       .classList
       .remove(
         "success"
       );
-
 
   }
 
