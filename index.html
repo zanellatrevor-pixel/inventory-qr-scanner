@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>C1-168 Inventory Scanner</title>
+
+<script
+  src="https://unpkg.com/html5-qrcode"
+></script>
+
+<style>
+
+body {
+  margin: 0;
+  background: #111;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.header {
+  background: #263238;
+  padding: 18px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.subtitle {
+  color: #bbb;
+  margin-top: 6px;
+}
+
+.scanner-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+#reader {
+  width: 100%;
+  background: black;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.status {
+  margin-top: 18px;
+  padding: 15px;
+  background: #222;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.success {
+  background: #1b5e20;
+}
+
+button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #455a64;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="header">
+
+  <h1>
+    C1-168 Inventory Scanner
+  </h1>
+
+  <div class="subtitle">
+    Point camera at inventory QR
+  </div>
+
+</div>
+
+
+<div class="scanner-container">
+
+  <div id="reader"></div>
+
+  <div
+    id="status"
+    class="status"
+  >
+    Starting scanner...
+  </div>
+
+  <button onclick="startScanner()">
+    RESTART SCANNER
+  </button>
+
+</div>
+
+
+<script>
+
+let scanner = null;
+let scanComplete = false;
+
+
+/*
+====================================
+EXTRACT NIIN
+====================================
+*/
+
+function extractNIIN(data) {
+
+  let niin = "";
+
+  try {
+
+    const url = new URL(data);
+
+    niin =
+      url.searchParams.get("niin") || "";
+
+  }
+
+  catch(error) {
+
+    niin =
+      String(data || "");
+
+  }
+
+
+  niin =
+    String(niin)
+      .replace(/[^0-9]/g, "");
+
+
+  return niin;
+
+}
+
+
+/*
+====================================
+SUCCESSFUL QR SCAN
+====================================
+*/
+
+function onScanSuccess(
+  decodedText,
+  decodedResult
+) {
+
+  if (scanComplete) {
+    return;
+  }
+
+
+  const niin =
+    extractNIIN(decodedText);
+
+
+  if (!niin) {
+
+    document
+      .getElementById("status")
+      .innerText =
+      "QR detected but no NIIN found.";
+
+    return;
+
+  }
+
+
+  scanComplete = true;
+
+
+  const status =
+    document.getElementById("status");
+
+
+  status.classList.add("success");
+
+
+  status.innerHTML =
+    "ITEM FOUND<br><strong>NIIN: " +
+    niin +
+    "</strong>";
+
+
+  /*
+  Save NIIN locally.
+
+  We'll use this when we connect
+  the scanner to the inventory app.
+  */
+
+  localStorage.setItem(
+    "lastScannedNIIN",
+    niin
+  );
+
+
+  /*
+  For the first test we intentionally
+  STOP HERE.
+
+  We want to prove that the scanner
+  works before connecting it to Google.
+  */
+
+}
+
+
+/*
+====================================
+START SCANNER
+====================================
+*/
+
+function startScanner() {
+
+  scanComplete = false;
+
+
+  document
+    .getElementById("status")
+    .classList
+    .remove("success");
+
+
+  document
+    .getElementById("status")
+    .innerText =
+    "Point camera at inventory QR";
+
+
+  if (scanner) {
+
+    try {
+      scanner.clear();
+    }
+    catch(error) {}
+
+  }
+
+
+  scanner =
+    new Html5QrcodeScanner(
+
+      "reader",
+
+      {
+
+        fps: 12,
+
+        qrbox: function(
+          width,
+          height
+        ) {
+
+          const size =
+            Math.floor(
+              Math.min(
+                width,
+                height
+              ) * 0.75
+            );
+
+          return {
+            width: size,
+            height: size
+          };
+
+        },
+
+        rememberLastUsedCamera: true,
+
+        showTorchButtonIfSupported: true,
+
+        showZoomSliderIfSupported: true,
+
+        supportedScanTypes: [
+          Html5QrcodeScanType.SCAN_TYPE_CAMERA
+        ]
+
+      },
+
+      false
+
+    );
+
+
+  scanner.render(
+    onScanSuccess
+  );
+
+}
+
+
+/*
+====================================
+START WHEN PAGE LOADS
+====================================
+*/
+
+window.onload =
+  function() {
+
+    startScanner();
+
+  };
+
+</script>
+
+
+</body>
+
+</html>
