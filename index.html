@@ -3,130 +3,511 @@
 
 <head>
 
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
 
-<title>C1-168 Inventory Scanner</title>
+  <title>C1-168 Inventory Scanner</title>
 
-<script
-  src="https://unpkg.com/html5-qrcode"
-></script>
+  <script src="https://unpkg.com/html5-qrcode"></script>
 
-<style>
+  <style>
 
-body {
-  margin: 0;
-  background: #111;
-  color: white;
-  font-family: Arial, sans-serif;
-  text-align: center;
-}
+    :root {
+      --navy: #031729;
+      --navy2: #082c49;
+      --red: #d71920;
+      --green: #63d13f;
+      --muted: #9fb0bf;
+      --panel: #0c1f31;
+      --panel2: #10283d;
+      --white: #ffffff;
+    }
 
-.header {
-  background: #263238;
-  padding: 18px;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-h1 {
-  margin: 0;
-  font-size: 24px;
-}
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: #020d17;
+      font-family: Arial, Helvetica, sans-serif;
+      color: white;
+    }
 
-.subtitle {
-  color: #bbb;
-  margin-top: 6px;
-}
+    body {
+      min-height: 100vh;
+    }
 
-.scanner-container {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-}
 
-#reader {
-  width: 100%;
-  background: black;
-  border-radius: 12px;
-  overflow: hidden;
-}
+    /* =========================
+       HEADER
+       ========================= */
 
-.status {
-  margin-top: 18px;
-  padding: 15px;
-  background: #222;
-  border-radius: 8px;
-  font-size: 18px;
-}
+    .header {
+      background:
+        linear-gradient(
+          135deg,
+          var(--navy),
+          var(--navy2)
+        );
+      border-bottom: 4px solid var(--red);
+      padding:
+        max(14px, env(safe-area-inset-top))
+        18px
+        14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-.success {
-  background: #1b5e20;
-}
+    .logo {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
 
-button {
-  width: 100%;
-  margin-top: 15px;
-  padding: 16px;
-  border: none;
-  border-radius: 8px;
-  background: #455a64;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-}
+    .headerText {
+      flex: 1;
+      min-width: 0;
+    }
 
-</style>
+    .title {
+      font-size: 25px;
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: .4px;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      color: #c7d1d9;
+      font-size: 14px;
+    }
+
+    .secure {
+      font-size: 11px;
+      color: #aebbc5;
+      white-space: nowrap;
+    }
+
+
+    /* =========================
+       MAIN
+       ========================= */
+
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 20px 16px 30px;
+    }
+
+    .scanIntro {
+      text-align: center;
+      margin: 4px 0 18px;
+    }
+
+    .scanIcon {
+      font-size: 38px;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .scanTitle {
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: .3px;
+    }
+
+    .scanSubtitle {
+      margin-top: 7px;
+      color: #bcc7cf;
+      font-size: 15px;
+    }
+
+
+    /* =========================
+       CAMERA FRAME
+       ========================= */
+
+    .scannerShell {
+      position: relative;
+      background: #000;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #425466;
+      box-shadow:
+        0 8px 30px rgba(0,0,0,.35);
+    }
+
+    #reader {
+      width: 100%;
+      min-height: 340px;
+      background: #000;
+    }
+
+    #reader video {
+      object-fit: cover !important;
+    }
+
+    /* green corner brackets */
+
+    .corner {
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .corner.tl {
+      left: 12px;
+      top: 12px;
+      border-left: 4px solid var(--green);
+      border-top: 4px solid var(--green);
+      border-radius: 8px 0 0 0;
+    }
+
+    .corner.tr {
+      right: 12px;
+      top: 12px;
+      border-right: 4px solid var(--green);
+      border-top: 4px solid var(--green);
+      border-radius: 0 8px 0 0;
+    }
+
+    .corner.bl {
+      left: 12px;
+      bottom: 12px;
+      border-left: 4px solid var(--green);
+      border-bottom: 4px solid var(--green);
+      border-radius: 0 0 0 8px;
+    }
+
+    .corner.br {
+      right: 12px;
+      bottom: 12px;
+      border-right: 4px solid var(--green);
+      border-bottom: 4px solid var(--green);
+      border-radius: 0 0 8px 0;
+    }
+
+
+    /* =========================
+       STATUS
+       ========================= */
+
+    .statusPanel {
+      margin-top: 16px;
+      background:
+        linear-gradient(
+          135deg,
+          var(--panel),
+          var(--panel2)
+        );
+      border-top: 3px solid var(--red);
+      border-radius: 11px;
+      padding: 17px;
+      text-align: center;
+    }
+
+    .statusMain {
+      color: var(--green);
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .statusSub {
+      margin-top: 5px;
+      color: #c5d0d8;
+      font-size: 14px;
+    }
+
+    .success {
+      background:
+        linear-gradient(
+          135deg,
+          #0e4a28,
+          #113c28
+        );
+    }
+
+    .success .statusMain {
+      color: #9aff7b;
+    }
+
+
+    /* =========================
+       CONTROLS
+       ========================= */
+
+    .controlRow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button {
+      appearance: none;
+      border: none;
+      border-radius: 9px;
+      padding: 14px 10px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .secondaryButton {
+      background: #142b3f;
+      color: white;
+      border: 1px solid #314a5f;
+    }
+
+    .restartButton {
+      background:
+        linear-gradient(
+          135deg,
+          #315a71,
+          #3e697d
+        );
+      color: white;
+    }
+
+
+    /* =========================
+       SECURITY FOOTER
+       ========================= */
+
+    .footer {
+      margin-top: 22px;
+      text-align: center;
+      color: #8295a5;
+      font-size: 12px;
+      padding-bottom:
+        max(8px, env(safe-area-inset-bottom));
+    }
+
+
+    /* =========================
+       HIDE UGLY LIBRARY LABELS
+       ========================= */
+
+    #reader__dashboard_section_csr span,
+    #reader__dashboard_section_swaplink,
+    #reader__status_span {
+      font-family: Arial, Helvetica, sans-serif !important;
+    }
+
+    #reader button {
+      background: #315a71 !important;
+      color: white !important;
+      border: none !important;
+      border-radius: 8px !important;
+      padding: 12px !important;
+      font-weight: 800 !important;
+    }
+
+    #reader select {
+      padding: 10px !important;
+      border-radius: 7px !important;
+      margin: 6px 0 !important;
+    }
+
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 520px) {
+
+      .logo {
+        width: 66px;
+        height: 66px;
+      }
+
+      .title {
+        font-size: 21px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+      }
+
+      .secure {
+        display: none;
+      }
+
+      #reader {
+        min-height: 300px;
+      }
+
+      .controlRow {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+  </style>
 
 </head>
 
 
 <body>
 
+
+<!-- =========================
+     HEADER
+     ========================= -->
+
 <div class="header">
 
-  <h1>
-    C1-168 Inventory Scanner
-  </h1>
+  <img
+    class="logo"
+    src="rainier-dustoff.png"
+    alt="Rainier DUSTOFF"
+  >
 
-  <div class="subtitle">
-    Point camera at inventory QR
+  <div class="headerText">
+
+    <div class="title">
+      C1-168 INVENTORY
+    </div>
+
+    <div class="subtitle">
+      Det 2 • C Co • 1-168 GSAB
+    </div>
+
+  </div>
+
+  <div class="secure">
+    🔒 SECURE
   </div>
 
 </div>
 
 
-<div class="scanner-container">
 
-  <div id="reader"></div>
+<div class="page">
+
+
+  <!-- =========================
+       SCAN INTRO
+       ========================= -->
+
+  <div class="scanIntro">
+
+    <div class="scanIcon">
+      ⌗
+    </div>
+
+    <div class="scanTitle">
+      SCAN ITEM QR CODE
+    </div>
+
+    <div class="scanSubtitle">
+      Point the rear camera at an inventory QR code
+    </div>
+
+  </div>
+
+
+
+  <!-- =========================
+       CAMERA
+       ========================= -->
+
+  <div class="scannerShell">
+
+    <div id="reader"></div>
+
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+
+  </div>
+
+
+
+  <!-- =========================
+       CONTROLS
+       ========================= -->
+
+  <div class="controlRow">
+
+    <button
+      class="secondaryButton"
+      onclick="requestCameraAgain()"
+    >
+      📷 CAMERA
+    </button>
+
+    <button
+      class="restartButton"
+      onclick="startScanner()"
+    >
+      ↻ RESTART SCANNER
+    </button>
+
+  </div>
+
+
+
+  <!-- =========================
+       STATUS
+       ========================= -->
 
   <div
-    id="status"
-    class="status"
+    id="statusPanel"
+    class="statusPanel"
   >
-    Starting scanner...
+
+    <div
+      id="statusMain"
+      class="statusMain"
+    >
+      READY TO SCAN
+    </div>
+
+    <div
+      id="statusSub"
+      class="statusSub"
+    >
+      Scanning happens automatically
+    </div>
+
   </div>
 
-  <button onclick="startScanner()">
-    RESTART SCANNER
-  </button>
+
+
+  <div class="footer">
+    🔒 Secure • Encrypted Connection
+  </div>
+
 
 </div>
+
 
 
 <script>
+
 
 let scanner = null;
 let scanComplete = false;
 
 
-/*
-====================================
-EXTRACT NIIN
-====================================
-*/
+/* =========================================
+   EXTRACT NIIN
+   ========================================= */
 
 function extractNIIN(data) {
 
@@ -134,24 +515,32 @@ function extractNIIN(data) {
 
   try {
 
-    const url = new URL(data);
+    const url =
+      new URL(data);
 
     niin =
-      url.searchParams.get("niin") || "";
+      url.searchParams.get(
+        "niin"
+      ) || "";
 
   }
 
   catch(error) {
 
     niin =
-      String(data || "");
+      String(
+        data || ""
+      );
 
   }
 
 
   niin =
     String(niin)
-      .replace(/[^0-9]/g, "");
+      .replace(
+        /[^0-9]/g,
+        ""
+      );
 
 
   return niin;
@@ -159,11 +548,10 @@ function extractNIIN(data) {
 }
 
 
-/*
-====================================
-SUCCESSFUL QR SCAN
-====================================
-*/
+
+/* =========================================
+   SCAN SUCCESS
+   ========================================= */
 
 function onScanSuccess(
   decodedText,
@@ -176,43 +564,26 @@ function onScanSuccess(
 
 
   const niin =
-    extractNIIN(decodedText);
+    extractNIIN(
+      decodedText
+    );
 
 
   if (!niin) {
 
-    document
-      .getElementById("status")
-      .innerText =
-      "QR detected but no NIIN found.";
+    setStatus(
+      "QR DETECTED",
+      "No NIIN found in this code.",
+      false
+    );
 
     return;
-
   }
 
 
-  scanComplete = true;
+  scanComplete =
+    true;
 
-
-  const status =
-    document.getElementById("status");
-
-
-  status.classList.add("success");
-
-
-  status.innerHTML =
-    "ITEM FOUND<br><strong>NIIN: " +
-    niin +
-    "</strong>";
-
-
-  /*
-  Save NIIN locally.
-
-  We'll use this when we connect
-  the scanner to the inventory app.
-  */
 
   localStorage.setItem(
     "lastScannedNIIN",
@@ -220,45 +591,48 @@ function onScanSuccess(
   );
 
 
-  /*
-  For the first test we intentionally
-  STOP HERE.
+  setStatus(
+    "ITEM FOUND",
+    "NIIN: " + niin,
+    true
+  );
 
-  We want to prove that the scanner
-  works before connecting it to Google.
+
+  /*
+  NEXT STEP:
+  This is where we will return
+  the NIIN to the Google inventory app.
   */
 
 }
 
 
-/*
-====================================
-START SCANNER
-====================================
-*/
+
+/* =========================================
+   START SCANNER
+   ========================================= */
 
 function startScanner() {
 
-  scanComplete = false;
+  scanComplete =
+    false;
 
 
-  document
-    .getElementById("status")
-    .classList
-    .remove("success");
-
-
-  document
-    .getElementById("status")
-    .innerText =
-    "Point camera at inventory QR";
+  setStatus(
+    "READY TO SCAN",
+    "Scanning happens automatically",
+    false
+  );
 
 
   if (scanner) {
 
     try {
+
       scanner.clear();
+
     }
+
     catch(error) {}
 
   }
@@ -283,24 +657,33 @@ function startScanner() {
               Math.min(
                 width,
                 height
-              ) * 0.75
+              ) * .72
             );
 
           return {
+
             width: size,
+
             height: size
+
           };
 
         },
 
-        rememberLastUsedCamera: true,
+        rememberLastUsedCamera:
+          true,
 
-        showTorchButtonIfSupported: true,
+        showTorchButtonIfSupported:
+          true,
 
-        showZoomSliderIfSupported: true,
+        showZoomSliderIfSupported:
+          true,
 
         supportedScanTypes: [
-          Html5QrcodeScanType.SCAN_TYPE_CAMERA
+
+          Html5QrcodeScanType
+            .SCAN_TYPE_CAMERA
+
         ]
 
       },
@@ -317,11 +700,78 @@ function startScanner() {
 }
 
 
-/*
-====================================
-START WHEN PAGE LOADS
-====================================
-*/
+
+/* =========================================
+   CAMERA PERMISSION
+   ========================================= */
+
+function requestCameraAgain() {
+
+  startScanner();
+
+}
+
+
+
+/* =========================================
+   STATUS
+   ========================================= */
+
+function setStatus(
+  main,
+  sub,
+  success
+) {
+
+  const panel =
+    document.getElementById(
+      "statusPanel"
+    );
+
+
+  const mainEl =
+    document.getElementById(
+      "statusMain"
+    );
+
+
+  const subEl =
+    document.getElementById(
+      "statusSub"
+    );
+
+
+  mainEl.textContent =
+    main;
+
+
+  subEl.textContent =
+    sub;
+
+
+  if (success) {
+
+    panel.classList.add(
+      "success"
+    );
+
+  }
+
+  else {
+
+    panel.classList.remove(
+      "success"
+    );
+
+  }
+
+}
+
+
+
+/* =========================================
+   LOAD
+   ========================================= */
 
 window.onload =
   function() {
@@ -329,6 +779,7 @@ window.onload =
     startScanner();
 
   };
+
 
 </script>
 
