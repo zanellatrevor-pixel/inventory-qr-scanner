@@ -14,6 +14,7 @@
 
   <script src="https://unpkg.com/html5-qrcode"></script>
 
+
   <style>
 
     :root {
@@ -21,25 +22,26 @@
       --navy2: #082c49;
       --red: #d71920;
       --green: #63d13f;
-      --muted: #9fb0bf;
       --panel: #0c1f31;
       --panel2: #10283d;
-      --white: #ffffff;
-      --light: #eef1f4;
+      --muted: #9fb0bf;
     }
+
 
     * {
       box-sizing: border-box;
     }
+
 
     html,
     body {
       margin: 0;
       min-height: 100%;
       background: #020d17;
-      font-family: Arial, Helvetica, sans-serif;
       color: white;
+      font-family: Arial, Helvetica, sans-serif;
     }
+
 
     body {
       min-height: 100vh;
@@ -51,6 +53,7 @@
        ========================= */
 
     .header {
+
       background:
         linear-gradient(
           135deg,
@@ -58,7 +61,8 @@
           var(--navy2)
         );
 
-      border-bottom: 4px solid var(--red);
+      border-bottom:
+        4px solid var(--red);
 
       padding:
         max(14px, env(safe-area-inset-top))
@@ -68,104 +72,194 @@
       display: flex;
       align-items: center;
       gap: 14px;
+
     }
 
+
     .logo {
-      width: 74px;
-      height: 74px;
-      border-radius: 50%;
+
+      width: 70px;
+      height: 70px;
+
       object-fit: contain;
+
+      border-radius: 50%;
+
       flex-shrink: 0;
+
     }
+
 
     .headerText {
       flex: 1;
-      min-width: 0;
     }
+
 
     .title {
-      font-size: 25px;
-      line-height: 1.05;
+
+      font-size: 24px;
       font-weight: 900;
+
       letter-spacing: .4px;
+
     }
+
 
     .subtitle {
-      margin-top: 5px;
+
+      margin-top: 4px;
+
+      font-size: 13px;
+
       color: #c7d1d9;
-      font-size: 14px;
+
     }
 
+
     .secure {
+
       font-size: 11px;
+
       color: #aebbc5;
-      white-space: nowrap;
+
     }
 
 
     /* =========================
-       MAIN PAGE
+       MAIN
        ========================= */
 
     .page {
+
       max-width: 680px;
+
       margin: 0 auto;
-      padding: 20px 16px 34px;
+
+      padding:
+        20px
+        16px
+        36px;
+
     }
 
-
-    /* =========================
-       INTRO
-       ========================= */
 
     .scanIntro {
+
       text-align: center;
-      margin: 4px 0 18px;
+
+      margin-bottom: 18px;
+
     }
+
 
     .scanIcon {
-      font-size: 38px;
+
       color: var(--green);
-      line-height: 1;
+
+      font-size: 38px;
+
       margin-bottom: 5px;
+
     }
+
 
     .scanTitle {
+
       font-size: 23px;
+
       font-weight: 900;
-      letter-spacing: .3px;
+
     }
 
+
     .scanSubtitle {
+
       margin-top: 7px;
-      color: #bcc7cf;
-      font-size: 15px;
+
+      color: #bdc8d0;
+
+      font-size: 14px;
+
     }
 
 
     /* =========================
-       CAMERA FRAME
+       START BUTTON
+       ========================= */
+
+    .startButton {
+
+      width: 100%;
+
+      padding: 17px;
+
+      border: none;
+
+      border-radius: 10px;
+
+      margin-bottom: 15px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #247c3b,
+          #1a612e
+        );
+
+      color: white;
+
+      font-size: 18px;
+
+      font-weight: 900;
+
+      cursor: pointer;
+
+    }
+
+
+    /* =========================
+       CAMERA
        ========================= */
 
     .scannerShell {
+
       position: relative;
+
       background: #000;
-      border-radius: 16px;
+
+      border-radius: 15px;
+
       overflow: hidden;
-      border: 1px solid #425466;
+
+      border:
+        1px solid #425466;
 
       box-shadow:
-        0 8px 30px rgba(0,0,0,.35);
+        0 8px 30px
+        rgba(0,0,0,.35);
+
     }
+
 
     #reader {
+
       width: 100%;
-      min-height: 330px;
+
+      min-height: 320px;
+
       background: #000;
+
     }
 
+
     #reader video {
+
+      width: 100% !important;
+
+      height: 100% !important;
+
       object-fit: cover !important;
+
     }
 
 
@@ -174,158 +268,145 @@
        ========================= */
 
     .corner {
+
       position: absolute;
-      width: 42px;
-      height: 42px;
+
+      width: 44px;
+
+      height: 44px;
+
       z-index: 20;
+
       pointer-events: none;
+
     }
 
-    .corner.tl {
-      left: 12px;
+
+    .tl {
+
       top: 12px;
-      border-left: 4px solid var(--green);
-      border-top: 4px solid var(--green);
-      border-radius: 8px 0 0 0;
-    }
-
-    .corner.tr {
-      right: 12px;
-      top: 12px;
-      border-right: 4px solid var(--green);
-      border-top: 4px solid var(--green);
-      border-radius: 0 8px 0 0;
-    }
-
-    .corner.bl {
       left: 12px;
-      bottom: 12px;
-      border-left: 4px solid var(--green);
-      border-bottom: 4px solid var(--green);
-      border-radius: 0 0 0 8px;
+
+      border-top:
+        4px solid var(--green);
+
+      border-left:
+        4px solid var(--green);
+
     }
 
-    .corner.br {
+
+    .tr {
+
+      top: 12px;
       right: 12px;
+
+      border-top:
+        4px solid var(--green);
+
+      border-right:
+        4px solid var(--green);
+
+    }
+
+
+    .bl {
+
       bottom: 12px;
-      border-right: 4px solid var(--green);
-      border-bottom: 4px solid var(--green);
-      border-radius: 0 0 8px 0;
+      left: 12px;
+
+      border-bottom:
+        4px solid var(--green);
+
+      border-left:
+        4px solid var(--green);
+
+    }
+
+
+    .br {
+
+      bottom: 12px;
+      right: 12px;
+
+      border-bottom:
+        4px solid var(--green);
+
+      border-right:
+        4px solid var(--green);
+
     }
 
 
     /* =========================
-       CONTROLS
+       CAMERA CONTROLS
        ========================= */
 
-    .controlRow {
+    .cameraControls {
+
       display: grid;
-      grid-template-columns: 1fr 1fr;
+
+      grid-template-columns:
+        1fr 1fr;
+
       gap: 10px;
-      margin-top: 14px;
+
+      margin-top: 12px;
+
     }
+
 
     button {
-      appearance: none;
+
       border: none;
-      border-radius: 9px;
-      padding: 14px 10px;
+
+      border-radius: 8px;
+
+      padding: 14px;
+
       font-size: 15px;
+
       font-weight: 800;
+
       cursor: pointer;
+
     }
 
-    .secondaryButton {
-      background: #142b3f;
-      color: white;
-      border: 1px solid #314a5f;
-    }
 
     .restartButton {
+
       background:
-        linear-gradient(
-          135deg,
-          #315a71,
-          #3e697d
-        );
+        #315a71;
 
       color: white;
+
+    }
+
+
+    .stopButton {
+
+      background:
+        #46252a;
+
+      color: white;
+
     }
 
 
     /* =========================
-       MANUAL NIIN
+       MANUAL ENTRY
        ========================= */
 
     .manualPanel {
+
       margin-top: 16px;
 
-      background:
-        linear-gradient(
-          135deg,
-          #0c1f31,
-          #10283d
-        );
-
-      border: 1px solid #314a5f;
-      border-radius: 11px;
       padding: 15px;
-    }
 
-    .manualLabel {
-      font-size: 12px;
-      font-weight: 800;
-      color: #9fb0bf;
-      margin-bottom: 8px;
-      letter-spacing: .5px;
-      text-transform: uppercase;
-    }
+      border-radius: 11px;
 
-    #manualNIIN {
-      width: 100%;
-      padding: 13px;
-      border-radius: 8px;
-      border: 1px solid #41586b;
-      background: #ffffff;
-      color: #10243a;
-      font-size: 18px;
-      box-sizing: border-box;
-    }
-
-    #manualNIIN:focus {
-      outline: none;
-      border-color: var(--green);
-      box-shadow:
-        0 0 0 2px rgba(99,209,63,.15);
-    }
-
-    .manualButton {
-      width: 100%;
-      margin-top: 10px;
-      padding: 14px;
-
-      border: none;
-      border-radius: 8px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #315a71,
-          #3e697d
-        );
-
-      color: white;
-      font-size: 16px;
-      font-weight: 800;
-    }
-
-
-    /* =========================
-       STATUS
-       ========================= */
-
-    .statusPanel {
-      margin-top: 16px;
+      border:
+        1px solid #314a5f;
 
       background:
         linear-gradient(
@@ -334,63 +415,199 @@
           var(--panel2)
         );
 
-      border-top: 3px solid var(--red);
-      border-radius: 11px;
-      padding: 17px;
-      text-align: center;
     }
+
+
+    .manualLabel {
+
+      margin-bottom: 8px;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      color: var(--muted);
+
+      text-transform: uppercase;
+
+      letter-spacing: .5px;
+
+    }
+
+
+    #manualNIIN {
+
+      width: 100%;
+
+      padding: 13px;
+
+      border:
+        1px solid #41586b;
+
+      border-radius: 8px;
+
+      font-size: 18px;
+
+      background: white;
+
+      color: #10243a;
+
+    }
+
+
+    #manualNIIN:focus {
+
+      outline: none;
+
+      border-color:
+        var(--green);
+
+    }
+
+
+    .manualButton {
+
+      width: 100%;
+
+      margin-top: 10px;
+
+      background:
+        #315a71;
+
+      color: white;
+
+    }
+
+
+    /* =========================
+       STATUS
+       ========================= */
+
+    .statusPanel {
+
+      margin-top: 16px;
+
+      padding: 17px;
+
+      text-align: center;
+
+      border-radius: 11px;
+
+      border-top:
+        3px solid var(--red);
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--panel),
+          var(--panel2)
+        );
+
+    }
+
 
     .statusMain {
+
       color: var(--green);
-      font-size: 22px;
+
+      font-size: 21px;
+
       font-weight: 900;
+
     }
+
 
     .statusSub {
+
       margin-top: 5px;
+
       color: #c5d0d8;
+
       font-size: 14px;
+
     }
 
-    .success {
+
+    .statusPanel.success {
+
       background:
         linear-gradient(
           135deg,
           #0e4a28,
           #113c28
         );
-    }
 
-    .success .statusMain {
-      color: #9aff7b;
     }
 
 
     /* =========================
-       RESULT PANEL
+       RESULT
        ========================= */
 
     .resultPanel {
+
       display: none;
-      margin-top: 16px;
-      background: #f4f7f9;
-      color: #10243a;
+
+      margin-top: 15px;
+
+      padding: 15px;
+
       border-radius: 10px;
-      padding: 16px;
-      border-left: 5px solid var(--green);
+
+      border-left:
+        5px solid var(--green);
+
+      background: white;
+
+      color: #10243a;
+
     }
+
 
     .resultLabel {
+
       font-size: 11px;
+
       font-weight: 800;
-      color: #6c7a86;
+
+      color: #687784;
+
       text-transform: uppercase;
+
     }
 
+
     #resultNIIN {
-      font-size: 25px;
-      font-weight: 900;
+
       margin-top: 3px;
+
+      font-size: 27px;
+
+      font-weight: 900;
+
+    }
+
+
+    /* =========================
+       DEBUG CAMERA INFO
+       ========================= */
+
+    .cameraInfo {
+
+      margin-top: 12px;
+
+      padding: 10px;
+
+      border-radius: 8px;
+
+      background: #091725;
+
+      color: #9fb0bf;
+
+      font-size: 11px;
+
+      text-align: center;
+
     }
 
 
@@ -399,48 +616,54 @@
        ========================= */
 
     .footer {
-      margin-top: 22px;
+
+      margin-top: 20px;
+
       text-align: center;
+
       color: #8295a5;
+
       font-size: 12px;
 
-      padding-bottom:
-        max(
-          8px,
-          env(safe-area-inset-bottom)
-        );
     }
 
-
-    /* =========================
-       MOBILE
-       ========================= */
 
     @media(max-width:520px) {
 
       .logo {
-        width: 64px;
-        height: 64px;
+
+        width: 62px;
+        height: 62px;
+
       }
+
 
       .title {
-        font-size: 21px;
+
+        font-size: 20px;
+
       }
 
-      .subtitle {
-        font-size: 12px;
-      }
 
       .secure {
+
         display: none;
+
       }
+
 
       #reader {
+
         min-height: 290px;
+
       }
 
-      .controlRow {
-        grid-template-columns: 1fr;
+
+      .cameraControls {
+
+        grid-template-columns:
+          1fr;
+
       }
 
     }
@@ -448,6 +671,7 @@
   </style>
 
 </head>
+
 
 
 <body>
@@ -465,6 +689,7 @@
     alt="Rainier DUSTOFF"
   >
 
+
   <div class="headerText">
 
     <div class="title">
@@ -477,6 +702,7 @@
 
   </div>
 
+
   <div class="secure">
     🔒 SECURE
   </div>
@@ -488,153 +714,180 @@
 <div class="page">
 
 
-  <!-- =========================
-       INTRO
-       ========================= -->
+<!-- =========================
+     INTRO
+     ========================= -->
 
-  <div class="scanIntro">
+<div class="scanIntro">
 
-    <div class="scanIcon">
-      ⌗
-    </div>
+  <div class="scanIcon">
+    ⌗
+  </div>
 
-    <div class="scanTitle">
-      SCAN ITEM QR CODE
-    </div>
+  <div class="scanTitle">
+    SCAN ITEM QR CODE
+  </div>
 
-    <div class="scanSubtitle">
-      Rear camera opens automatically
-    </div>
+  <div class="scanSubtitle">
+    Uses the normal rear camera when available
+  </div>
 
+</div>
+
+
+
+<!-- =========================
+     START SCANNER
+     ========================= -->
+
+<button
+  class="startButton"
+  onclick="startScanner()"
+>
+  📷 START SCANNER
+</button>
+
+
+
+<!-- =========================
+     CAMERA
+     ========================= -->
+
+<div class="scannerShell">
+
+  <div id="reader"></div>
+
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+</div>
+
+
+
+<!-- =========================
+     CAMERA CONTROLS
+     ========================= -->
+
+<div class="cameraControls">
+
+  <button
+    class="restartButton"
+    onclick="restartScanner()"
+  >
+    ↻ RESTART CAMERA
+  </button>
+
+
+  <button
+    class="stopButton"
+    onclick="stopScanner()"
+  >
+    ■ STOP CAMERA
+  </button>
+
+</div>
+
+
+
+<div
+  id="cameraInfo"
+  class="cameraInfo"
+>
+  Camera not started
+</div>
+
+
+
+<!-- =========================
+     MANUAL NIIN
+     ========================= -->
+
+<div class="manualPanel">
+
+  <div class="manualLabel">
+    Or Enter NIIN Manually
   </div>
 
 
-
-  <!-- =========================
-       CAMERA
-       ========================= -->
-
-  <div class="scannerShell">
-
-    <div id="reader"></div>
-
-    <div class="corner tl"></div>
-    <div class="corner tr"></div>
-    <div class="corner bl"></div>
-    <div class="corner br"></div>
-
-  </div>
-
-
-
-  <!-- =========================
-       CAMERA CONTROLS
-       ========================= -->
-
-  <div class="controlRow">
-
-    <button
-      class="secondaryButton"
-      onclick="startScanner()"
-    >
-      📷 START CAMERA
-    </button>
-
-    <button
-      class="restartButton"
-      onclick="restartScanner()"
-    >
-      ↻ RESTART SCANNER
-    </button>
-
-  </div>
-
-
-
-  <!-- =========================
-       MANUAL ENTRY
-       ========================= -->
-
-  <div class="manualPanel">
-
-    <div class="manualLabel">
-      Or Enter NIIN Manually
-    </div>
-
-    <input
-      type="text"
-      id="manualNIIN"
-      placeholder="Enter NIIN"
-      inputmode="numeric"
-      autocomplete="off"
-      onkeydown="
-        if(event.key === 'Enter') {
-          submitManualNIIN();
-        }
-      "
-    >
-
-    <button
-      class="manualButton"
-      onclick="submitManualNIIN()"
-    >
-      FIND ITEM
-    </button>
-
-  </div>
-
-
-
-  <!-- =========================
-       STATUS
-       ========================= -->
-
-  <div
-    id="statusPanel"
-    class="statusPanel"
+  <input
+    type="text"
+    id="manualNIIN"
+    placeholder="Enter NIIN"
+    inputmode="numeric"
+    autocomplete="off"
+    onkeydown="
+      if(event.key === 'Enter') {
+        submitManualNIIN();
+      }
+    "
   >
 
-    <div
-      id="statusMain"
-      class="statusMain"
-    >
-      READY TO SCAN
-    </div>
 
-    <div
-      id="statusSub"
-      class="statusSub"
-    >
-      Point the rear camera at an inventory QR
-    </div>
+  <button
+    class="manualButton"
+    onclick="submitManualNIIN()"
+  >
+    FIND ITEM
+  </button>
 
-  </div>
+</div>
 
 
 
-  <!-- =========================
-       RESULT
-       ========================= -->
+<!-- =========================
+     STATUS
+     ========================= -->
+
+<div
+  id="statusPanel"
+  class="statusPanel"
+>
 
   <div
-    id="resultPanel"
-    class="resultPanel"
+    id="statusMain"
+    class="statusMain"
   >
-
-    <div class="resultLabel">
-      NIIN Detected
-    </div>
-
-    <div id="resultNIIN">
-    </div>
-
+    READY
   </div>
 
 
-
-  <div class="footer">
-    🔒 Secure • Rainier DUSTOFF Inventory Scanner
+  <div
+    id="statusSub"
+    class="statusSub"
+  >
+    Tap START SCANNER to enable the camera
   </div>
+
+</div>
+
+
+
+<!-- =========================
+     RESULT
+     ========================= -->
+
+<div
+  id="resultPanel"
+  class="resultPanel"
+>
+
+  <div class="resultLabel">
+    NIIN Detected
+  </div>
+
+
+  <div id="resultNIIN">
+  </div>
+
+</div>
+
+
+
+<div class="footer">
+  🔒 Secure • Rainier DUSTOFF Inventory Scanner
+</div>
 
 
 </div>
@@ -645,7 +898,13 @@
 
 
 let scanner = null;
-let scanComplete = false;
+
+let scannerRunning =
+  false;
+
+let scanComplete =
+  false;
+
 
 
 /* =========================================
@@ -656,7 +915,8 @@ function extractNIIN(
   data
 ) {
 
-  let niin = "";
+  let niin =
+    "";
 
 
   try {
@@ -687,24 +947,20 @@ function extractNIIN(
   }
 
 
-  niin =
-    String(
-      niin
-    )
-    .replace(
-      /[^0-9]/g,
-      ""
-    );
-
-
-  return niin;
+  return String(
+    niin
+  )
+  .replace(
+    /[^0-9]/g,
+    ""
+  );
 
 }
 
 
 
 /* =========================================
-   DISPLAY RESULT
+   SHOW RESULT
    ========================================= */
 
 function showNIIN(
@@ -745,7 +1001,7 @@ function showNIIN(
 
 
 /* =========================================
-   QR SCAN SUCCESS
+   QR SUCCESS
    ========================================= */
 
 function onScanSuccess(
@@ -771,12 +1027,6 @@ function onScanSuccess(
     !niin
   ) {
 
-    setStatus(
-      "QR DETECTED",
-      "No NIIN was found in this QR code.",
-      false
-    );
-
     return;
 
   }
@@ -795,10 +1045,245 @@ function onScanSuccess(
 
 
 /* =========================================
-   START REAR CAMERA
+   CHOOSE BEST REAR CAMERA
+   ========================================= */
+
+function chooseBestCamera(
+  cameras
+) {
+
+
+  if (
+    !cameras ||
+    cameras.length === 0
+  ) {
+
+    return null;
+
+  }
+
+
+  /*
+  Build ranking system.
+
+  Highest preference:
+  normal rear/wide camera
+
+  Lower preference:
+  generic rear camera
+
+  Avoid:
+  front
+  selfie
+  ultra wide
+  telephoto
+  macro
+  */
+
+
+  let ranked =
+    cameras.map(
+
+      function(camera) {
+
+
+        const label =
+          String(
+            camera.label || ""
+          ).toLowerCase();
+
+
+        let score =
+          0;
+
+
+        /*
+        Rear camera preference
+        */
+
+
+        if (
+          label.includes(
+            "back"
+          )
+        ) {
+
+          score +=
+            100;
+
+        }
+
+
+        if (
+          label.includes(
+            "rear"
+          )
+        ) {
+
+          score +=
+            100;
+
+        }
+
+
+        /*
+        Prefer normal wide camera
+        */
+
+
+        if (
+          label.includes(
+            "wide"
+          )
+        ) {
+
+          score +=
+            30;
+
+        }
+
+
+        /*
+        Some iPhones label the normal
+        camera as dual-wide.
+        */
+
+
+        if (
+          label.includes(
+            "dual"
+          )
+        ) {
+
+          score +=
+            15;
+
+        }
+
+
+        /*
+        Avoid selfie/front
+        */
+
+
+        if (
+          label.includes(
+            "front"
+          )
+        ) {
+
+          score -=
+            200;
+
+        }
+
+
+        if (
+          label.includes(
+            "user"
+          )
+        ) {
+
+          score -=
+            200;
+
+        }
+
+
+        if (
+          label.includes(
+            "selfie"
+          )
+        ) {
+
+          score -=
+            200;
+
+        }
+
+
+        /*
+        Avoid special rear lenses
+        */
+
+
+        if (
+          label.includes(
+            "ultra"
+          )
+        ) {
+
+          score -=
+            80;
+
+        }
+
+
+        if (
+          label.includes(
+            "telephoto"
+          )
+        ) {
+
+          score -=
+            80;
+
+        }
+
+
+        if (
+          label.includes(
+            "macro"
+          )
+        ) {
+
+          score -=
+            80;
+
+        }
+
+
+        return {
+
+          camera:
+            camera,
+
+          score:
+            score
+
+        };
+
+      }
+
+    );
+
+
+  ranked.sort(
+
+    function(a,b) {
+
+      return (
+        b.score -
+        a.score
+      );
+
+    }
+
+  );
+
+
+  return ranked[0].camera;
+
+}
+
+
+
+/* =========================================
+   START SCANNER
    ========================================= */
 
 async function startScanner() {
+
 
   scanComplete =
     false;
@@ -814,8 +1299,8 @@ async function startScanner() {
 
 
   setStatus(
-    "STARTING CAMERA",
-    "Opening rear camera...",
+    "CAMERA PERMISSION",
+    "Allow camera access when Safari asks.",
     false
   );
 
@@ -823,22 +1308,19 @@ async function startScanner() {
   try {
 
 
+    /*
+    Stop old scanner if needed.
+    */
+
+
     if (
+      scannerRunning &&
       scanner
     ) {
 
       try {
 
         await scanner.stop();
-
-      }
-
-      catch(error) {}
-
-
-      try {
-
-        await scanner.clear();
 
       }
 
@@ -854,23 +1336,102 @@ async function startScanner() {
 
 
     /*
-    Prefer rear/environment camera.
+    Request camera list.
+
+    This also triggers browser
+    permission if required.
     */
 
 
-    const cameraConfig = {
+    const cameras =
+      await Html5Qrcode
+        .getCameras();
 
-      facingMode: {
 
-        ideal:
+    if (
+      !cameras ||
+      cameras.length === 0
+    ) {
+
+      throw new Error(
+        "No cameras detected."
+      );
+
+    }
+
+
+    /*
+    Find best rear camera.
+    */
+
+
+    const bestCamera =
+      chooseBestCamera(
+        cameras
+      );
+
+
+    let cameraConfig;
+
+
+    if (
+      bestCamera
+    ) {
+
+
+      cameraConfig =
+        bestCamera.id;
+
+
+      document
+        .getElementById(
+          "cameraInfo"
+        )
+        .textContent =
+
+        "Camera: " +
+        (
+          bestCamera.label ||
+          "Rear Camera"
+        );
+
+    }
+
+
+    else {
+
+
+      /*
+      Fallback.
+      */
+
+
+      cameraConfig = {
+
+        facingMode:
           "environment"
 
-      }
+      };
 
-    };
+
+      document
+        .getElementById(
+          "cameraInfo"
+        )
+        .textContent =
+        "Camera: Rear / Environment";
+
+    }
+
+
+
+    /*
+    Scanner configuration
+    */
 
 
     const scanConfig = {
+
 
       fps:
         15,
@@ -891,7 +1452,7 @@ async function startScanner() {
                 height
               )
 
-              * .72
+              * .75
 
             );
 
@@ -919,6 +1480,7 @@ async function startScanner() {
     };
 
 
+
     await scanner.start(
 
       cameraConfig,
@@ -930,8 +1492,8 @@ async function startScanner() {
       function(errorMessage) {
 
         /*
-        Normal scanning failures
-        are intentionally ignored.
+        QR scan failures are normal.
+        Scanner keeps looking.
         */
 
       }
@@ -939,9 +1501,13 @@ async function startScanner() {
     );
 
 
+    scannerRunning =
+      true;
+
+
     setStatus(
       "READY TO SCAN",
-      "Rear camera active • Point at inventory QR",
+      "Point the camera at an inventory QR code.",
       false
     );
 
@@ -957,10 +1523,84 @@ async function startScanner() {
     );
 
 
+    scannerRunning =
+      false;
+
+
+    document
+      .getElementById(
+        "cameraInfo"
+      )
+      .textContent =
+      "Camera unavailable";
+
+
     setStatus(
-      "CAMERA ACCESS REQUIRED",
-      "Allow camera permission in Safari, then tap START CAMERA.",
+      "CAMERA ACCESS FAILED",
+      String(
+        error.message ||
+        error
+      ),
       false
+    );
+
+
+  }
+
+}
+
+
+
+/* =========================================
+   STOP SCANNER
+   ========================================= */
+
+async function stopScanner() {
+
+
+  if (
+    !scanner ||
+    !scannerRunning
+  ) {
+
+    return;
+
+  }
+
+
+  try {
+
+
+    await scanner.stop();
+
+
+    scannerRunning =
+      false;
+
+
+    setStatus(
+      "CAMERA STOPPED",
+      "Tap START SCANNER to begin again.",
+      false
+    );
+
+
+    document
+      .getElementById(
+        "cameraInfo"
+      )
+      .textContent =
+      "Camera stopped";
+
+
+  }
+
+
+  catch(error) {
+
+
+    console.error(
+      error
     );
 
 
@@ -976,8 +1616,8 @@ async function startScanner() {
 
 async function restartScanner() {
 
-  scanComplete =
-    false;
+
+  await stopScanner();
 
 
   await startScanner();
@@ -1004,11 +1644,8 @@ function submitManualNIIN() {
 
       ""
 
-    );
-
-
-  niin =
-    niin.replace(
+    )
+    .replace(
       /[^0-9]/g,
       ""
     );
@@ -1021,7 +1658,7 @@ function submitManualNIIN() {
 
     setStatus(
       "ENTER NIIN",
-      "Type a valid NIIN and try again.",
+      "Type a valid NIIN.",
       false
     );
 
@@ -1081,22 +1718,26 @@ function setStatus(
     success
   ) {
 
+
     panel
       .classList
       .add(
         "success"
       );
 
+
   }
 
 
   else {
+
 
     panel
       .classList
       .remove(
         "success"
       );
+
 
   }
 
@@ -1105,20 +1746,15 @@ function setStatus(
 
 
 /* =========================================
-   AUTO START
+   IMPORTANT:
+
+   NO AUTO CAMERA START.
+
+   User explicitly taps START SCANNER.
+
+   This makes Safari camera permission
+   much more reliable.
    ========================================= */
-
-window.addEventListener(
-
-  "load",
-
-  function() {
-
-    startScanner();
-
-  }
-
-);
 
 
 </script>
