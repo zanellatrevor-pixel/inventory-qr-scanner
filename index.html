@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -12,6 +11,7 @@
 
   <title>C1-168 Inventory Scanner</title>
 
+  <!-- QR SCANNER LIBRARY -->
   <script src="https://unpkg.com/html5-qrcode"></script>
 
   <style>
@@ -45,12 +45,11 @@
     }
 
 
-    /* ===============================
+    /* =========================================
        HEADER
-       =============================== */
+       ========================================= */
 
     .header {
-
       background:
         linear-gradient(
           135deg,
@@ -58,8 +57,7 @@
           var(--navy2)
         );
 
-      border-bottom:
-        4px solid var(--red);
+      border-bottom: 4px solid var(--red);
 
       padding:
         max(14px, env(safe-area-inset-top))
@@ -69,126 +67,111 @@
       display: flex;
       align-items: center;
       gap: 14px;
-
     }
+
+
+    /* CLICKABLE HOME LOGO */
+
+    .homeLogo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      cursor: pointer;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .12s ease, opacity .12s ease;
+    }
+
+    .homeLogo:active {
+      transform: scale(.94);
+      opacity: .8;
+    }
+
 
     .logo {
-
       width: 70px;
       height: 70px;
-
       object-fit: contain;
-
       border-radius: 50%;
-
-      flex-shrink: 0;
-
+      display: block;
     }
+
 
     .headerText {
       flex: 1;
     }
 
-    .title {
 
+    .title {
       font-size: 24px;
       font-weight: 900;
       letter-spacing: .4px;
-
     }
+
 
     .subtitle {
-
       margin-top: 4px;
-
       font-size: 13px;
-
       color: #c7d1d9;
-
     }
+
 
     .secure {
-
       font-size: 11px;
-
       color: #aebbc5;
-
     }
 
 
-    /* ===============================
+    /* =========================================
        PAGE
-       =============================== */
+       ========================================= */
 
     .page {
-
       max-width: 680px;
-
       margin: 0 auto;
-
-      padding:
-        20px
-        16px
-        36px;
-
+      padding: 20px 16px 36px;
     }
 
 
-    /* ===============================
+    /* =========================================
        INTRO
-       =============================== */
+       ========================================= */
 
     .scanIntro {
-
       text-align: center;
-
       margin-bottom: 18px;
-
     }
+
 
     .scanIcon {
-
       color: var(--green);
-
       font-size: 38px;
-
       margin-bottom: 5px;
-
     }
+
 
     .scanTitle {
-
       font-size: 23px;
-
       font-weight: 900;
-
     }
+
 
     .scanSubtitle {
-
       margin-top: 7px;
-
       color: #bdc8d0;
-
       font-size: 14px;
-
     }
 
 
-    /* ===============================
+    /* =========================================
        START BUTTON
-       =============================== */
+       ========================================= */
 
     .startButton {
-
       width: 100%;
-
       padding: 17px;
-
       border: none;
-
       border-radius: 10px;
-
       margin-bottom: 15px;
 
       background:
@@ -199,218 +182,145 @@
         );
 
       color: white;
-
       font-size: 18px;
-
       font-weight: 900;
-
       cursor: pointer;
-
     }
 
 
-    /* ===============================
+    /* =========================================
        CAMERA
-       =============================== */
+       ========================================= */
 
     .scannerShell {
-
       position: relative;
-
       background: #000;
-
       border-radius: 15px;
-
       overflow: hidden;
-
-      border:
-        1px solid #425466;
+      border: 1px solid #425466;
 
       box-shadow:
-        0 8px 30px
-        rgba(0,0,0,.35);
-
+        0 8px 30px rgba(0,0,0,.35);
     }
+
 
     #reader {
-
       width: 100%;
-
       min-height: 320px;
-
       background: #000;
-
     }
+
 
     #reader video {
-
       width: 100% !important;
-
       height: auto !important;
-
       object-fit: cover !important;
-
     }
 
 
-    /* ===============================
-       SCAN CORNERS
-       =============================== */
+    /* =========================================
+       GREEN SCAN CORNERS
+       ========================================= */
 
     .corner {
-
       position: absolute;
-
       width: 44px;
-
       height: 44px;
-
       z-index: 20;
-
       pointer-events: none;
-
     }
+
 
     .tl {
-
       top: 12px;
       left: 12px;
-
-      border-top:
-        4px solid var(--green);
-
-      border-left:
-        4px solid var(--green);
-
+      border-top: 4px solid var(--green);
+      border-left: 4px solid var(--green);
     }
+
 
     .tr {
-
       top: 12px;
       right: 12px;
-
-      border-top:
-        4px solid var(--green);
-
-      border-right:
-        4px solid var(--green);
-
+      border-top: 4px solid var(--green);
+      border-right: 4px solid var(--green);
     }
+
 
     .bl {
-
       bottom: 12px;
       left: 12px;
-
-      border-bottom:
-        4px solid var(--green);
-
-      border-left:
-        4px solid var(--green);
-
+      border-bottom: 4px solid var(--green);
+      border-left: 4px solid var(--green);
     }
+
 
     .br {
-
       bottom: 12px;
       right: 12px;
-
-      border-bottom:
-        4px solid var(--green);
-
-      border-right:
-        4px solid var(--green);
-
+      border-bottom: 4px solid var(--green);
+      border-right: 4px solid var(--green);
     }
 
 
-    /* ===============================
+    /* =========================================
        CAMERA CONTROLS
-       =============================== */
+       ========================================= */
 
     .cameraControls {
-
       display: grid;
-
-      grid-template-columns:
-        1fr 1fr;
-
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
-
       margin-top: 12px;
-
     }
+
 
     button {
-
       border: none;
-
       border-radius: 8px;
-
       padding: 14px;
-
       font-size: 15px;
-
       font-weight: 800;
-
       cursor: pointer;
-
     }
+
 
     .restartButton {
-
       background: #315a71;
-
       color: white;
-
     }
+
 
     .stopButton {
-
       background: #46252a;
-
       color: white;
-
     }
 
 
-    /* ===============================
+    /* =========================================
        CAMERA INFO
-       =============================== */
+       ========================================= */
 
     .cameraInfo {
-
       margin-top: 12px;
-
       padding: 10px;
-
       border-radius: 8px;
-
       background: #091725;
-
       color: #9fb0bf;
-
       font-size: 11px;
-
       text-align: center;
-
     }
 
 
-    /* ===============================
-       MANUAL ENTRY
-       =============================== */
+    /* =========================================
+       MANUAL NIIN
+       ========================================= */
 
     .manualPanel {
-
       margin-top: 16px;
-
       padding: 15px;
-
       border-radius: 11px;
-
-      border:
-        1px solid #314a5f;
+      border: 1px solid #314a5f;
 
       background:
         linear-gradient(
@@ -418,82 +328,54 @@
           var(--panel),
           var(--panel2)
         );
-
     }
+
 
     .manualLabel {
-
       margin-bottom: 8px;
-
       font-size: 12px;
-
       font-weight: 800;
-
       color: var(--muted);
-
       text-transform: uppercase;
-
       letter-spacing: .5px;
-
     }
+
 
     #manualNIIN {
-
       width: 100%;
-
       padding: 13px;
-
-      border:
-        1px solid #41586b;
-
+      border: 1px solid #41586b;
       border-radius: 8px;
-
       font-size: 18px;
-
       background: white;
-
       color: #10243a;
-
     }
+
 
     #manualNIIN:focus {
-
       outline: none;
-
-      border-color:
-        var(--green);
-
+      border-color: var(--green);
     }
+
 
     .manualButton {
-
       width: 100%;
-
       margin-top: 10px;
-
       background: #315a71;
-
       color: white;
-
     }
 
 
-    /* ===============================
+    /* =========================================
        STATUS
-       =============================== */
+       ========================================= */
 
     .statusPanel {
-
       margin-top: 16px;
-
       padding: 17px;
-
       text-align: center;
-
       border-radius: 11px;
-
-      border-top:
-        3px solid var(--red);
+      border-top: 3px solid var(--red);
 
       background:
         linear-gradient(
@@ -501,142 +383,105 @@
           var(--panel),
           var(--panel2)
         );
-
     }
+
 
     .statusMain {
-
       color: var(--green);
-
       font-size: 21px;
-
       font-weight: 900;
-
     }
+
 
     .statusSub {
-
       margin-top: 5px;
-
       color: #c5d0d8;
-
       font-size: 14px;
-
     }
 
-    .statusPanel.success {
 
+    .statusPanel.success {
       background:
         linear-gradient(
           135deg,
           #0e4a28,
           #113c28
         );
-
     }
 
 
-    /* ===============================
+    /* =========================================
        REDIRECT OVERLAY
-       =============================== */
+       ========================================= */
 
     #loadingOverlay {
-
       display: none;
-
       position: fixed;
-
       inset: 0;
-
       z-index: 9999;
 
       background:
         rgba(3, 23, 41, .97);
 
       align-items: center;
-
       justify-content: center;
-
       flex-direction: column;
-
       text-align: center;
-
       padding: 30px;
-
     }
 
-    .loadingCheck {
 
+    .loadingCheck {
       width: 74px;
       height: 74px;
-
       border-radius: 50%;
 
       display: flex;
-
       align-items: center;
-
       justify-content: center;
 
       background: #247c3b;
-
       font-size: 42px;
-
       margin-bottom: 20px;
-
     }
+
 
     .loadingTitle {
-
       font-size: 26px;
-
       font-weight: 900;
-
     }
+
 
     .loadingNIIN {
-
       margin-top: 8px;
-
       font-size: 19px;
-
       color: #9aff7b;
-
       font-weight: 800;
-
     }
+
 
     .loadingSub {
-
       margin-top: 10px;
-
       color: #c5d0d8;
-
       font-size: 14px;
-
     }
 
 
-    /* ===============================
+    /* =========================================
        FOOTER
-       =============================== */
+       ========================================= */
 
     .footer {
-
       margin-top: 20px;
-
       text-align: center;
-
       color: #8295a5;
-
       font-size: 12px;
-
     }
 
 
-    /* ===============================
+    /* =========================================
        MOBILE
-       =============================== */
+       ========================================= */
 
     @media(max-width:520px) {
 
@@ -668,21 +513,35 @@
 </head>
 
 
-
 <body>
 
 
-<!-- ===============================
+<!-- =========================================
      HEADER
-     =============================== -->
+     ========================================= -->
 
 <div class="header">
 
-  <img
-    class="logo"
-    src="rainier-dustoff.png"
-    alt="Rainier DUSTOFF"
+  <!--
+    HOME BUTTON:
+    Clicking the Rainier logo always returns
+    to the scanner home page.
+  -->
+
+  <a
+    href="https://zanellatrevor-pixel.github.io/inventory-qr-scanner/"
+    class="homeLogo"
+    aria-label="Return to Inventory Scanner Home"
   >
+
+    <img
+      class="logo"
+      src="rainier-dustoff.png"
+      alt="Rainier DUSTOFF"
+    >
+
+  </a>
+
 
   <div class="headerText">
 
@@ -696,6 +555,7 @@
 
   </div>
 
+
   <div class="secure">
     🔒 SECURE
   </div>
@@ -703,6 +563,10 @@
 </div>
 
 
+
+<!-- =========================================
+     MAIN PAGE
+     ========================================= -->
 
 <div class="page">
 
@@ -725,7 +589,7 @@
 
 
 
-  <!-- START -->
+  <!-- START SCANNER -->
 
   <button
     class="startButton"
@@ -762,6 +626,7 @@
       ↻ RESTART CAMERA
     </button>
 
+
     <button
       class="stopButton"
       onclick="stopScanner()"
@@ -782,13 +647,16 @@
 
 
 
-  <!-- MANUAL NIIN -->
+  <!-- =========================================
+       MANUAL NIIN
+       ========================================= -->
 
   <div class="manualPanel">
 
     <div class="manualLabel">
       Or Enter NIIN Manually
     </div>
+
 
     <input
       type="text"
@@ -803,6 +671,7 @@
       "
     >
 
+
     <button
       class="manualButton"
       onclick="submitManualNIIN()"
@@ -814,7 +683,9 @@
 
 
 
-  <!-- STATUS -->
+  <!-- =========================================
+       STATUS
+       ========================================= -->
 
   <div
     id="statusPanel"
@@ -827,6 +698,7 @@
     >
       READY
     </div>
+
 
     <div
       id="statusSub"
@@ -848,9 +720,9 @@
 
 
 
-<!-- ===============================
+<!-- =========================================
      REDIRECT OVERLAY
-     =============================== -->
+     ========================================= -->
 
 <div id="loadingOverlay">
 
@@ -858,15 +730,18 @@
     ✓
   </div>
 
+
   <div class="loadingTitle">
     ITEM FOUND
   </div>
+
 
   <div
     id="loadingNIIN"
     class="loadingNIIN"
   >
   </div>
+
 
   <div class="loadingSub">
     Opening live inventory record...
@@ -879,15 +754,35 @@
 <script>
 
 
-/* ===============================
-   IMPORTANT:
-   LIVE PRODUCTION INVENTORY APP
-   =============================== */
+/* =========================================
+   URLS
+   ========================================= */
+
+
+/*
+GitHub scanner home page.
+*/
+
+const SCANNER_HOME_URL =
+  "https://zanellatrevor-pixel.github.io/inventory-qr-scanner/";
+
+
+/*
+Live Google Apps Script inventory app.
+
+IMPORTANT:
+Keep this pointed at the production
+deployment connected to your live sheet.
+*/
 
 const INVENTORY_APP_URL =
   "https://script.google.com/macros/s/AKfycbzbxVUD35d6WIDDeMSCuFfZmSfnb7LNtvvmWC76K6w-L6334ZKwB5EO_uM1wFABdoWV/exec";
 
 
+
+/* =========================================
+   VARIABLES
+   ========================================= */
 
 let scanner = null;
 
@@ -899,13 +794,11 @@ let redirectStarted = false;
 
 
 
-/* ===============================
+/* =========================================
    EXTRACT NIIN
-   =============================== */
+   ========================================= */
 
-function extractNIIN(
-  data
-) {
+function extractNIIN(data) {
 
   let niin = "";
 
@@ -913,15 +806,11 @@ function extractNIIN(
   try {
 
     const url =
-      new URL(
-        data
-      );
+      new URL(data);
 
 
     niin =
-      url.searchParams.get(
-        "niin"
-      ) || "";
+      url.searchParams.get("niin") || "";
 
   }
 
@@ -929,36 +818,26 @@ function extractNIIN(
   catch(error) {
 
     niin =
-      String(
-        data || ""
-      );
+      String(data || "");
 
   }
 
 
-  return String(
-    niin
-  )
-  .replace(
-    /[^0-9]/g,
-    ""
-  );
+  return String(niin)
+    .replace(/[^0-9]/g, "");
 
 }
 
 
 
-/* ===============================
+/* =========================================
    OPEN INVENTORY ITEM
-   =============================== */
+   ========================================= */
 
-function openInventoryItem(
-  niin
-) {
+function openInventoryItem(niin) {
 
-  if (
-    redirectStarted
-  ) {
+
+  if (redirectStarted) {
 
     return;
 
@@ -970,46 +849,55 @@ function openInventoryItem(
   scanComplete = true;
 
 
+  /*
+  Save the NIIN locally as backup.
+  */
+
   localStorage.setItem(
     "lastScannedNIIN",
     niin
   );
 
 
+  /*
+  Display transition screen.
+  */
+
   document
-    .getElementById(
-      "loadingNIIN"
-    )
+    .getElementById("loadingNIIN")
     .textContent =
     "NIIN " + niin;
 
 
   document
-    .getElementById(
-      "loadingOverlay"
-    )
+    .getElementById("loadingOverlay")
     .style
     .display =
     "flex";
 
+
+  /*
+  Build live inventory URL.
+  */
 
   const destination =
     INVENTORY_APP_URL
     +
     "?niin="
     +
-    encodeURIComponent(
-      niin
-    );
+    encodeURIComponent(niin);
 
+
+  /*
+  Redirect to inventory item.
+  */
 
   setTimeout(
 
     function() {
 
-      window.location.replace(
-        destination
-      );
+      window.location.href =
+        destination;
 
     },
 
@@ -1021,13 +909,11 @@ function openInventoryItem(
 
 
 
-/* ===============================
+/* =========================================
    QR SUCCESS
-   =============================== */
+   ========================================= */
 
-function onScanSuccess(
-  decodedText
-) {
+function onScanSuccess(decodedText) {
 
 
   if (
@@ -1041,14 +927,10 @@ function onScanSuccess(
 
 
   const niin =
-    extractNIIN(
-      decodedText
-    );
+    extractNIIN(decodedText);
 
 
-  if (
-    !niin
-  ) {
+  if (!niin) {
 
 
     setStatus(
@@ -1063,21 +945,21 @@ function onScanSuccess(
   }
 
 
-  openInventoryItem(
-    niin
-  );
+  /*
+  Immediately open inventory item.
+  */
+
+  openInventoryItem(niin);
 
 }
 
 
 
-/* ===============================
-   CHOOSE CAMERA
-   =============================== */
+/* =========================================
+   CHOOSE BEST REAR CAMERA
+   ========================================= */
 
-function chooseBestCamera(
-  cameras
-) {
+function chooseBestCamera(cameras) {
 
 
   if (
@@ -1097,121 +979,80 @@ function chooseBestCamera(
 
 
         const label =
-          String(
-            camera.label || ""
-          )
+          String(camera.label || "")
           .toLowerCase();
 
 
         let score = 0;
 
 
-        if (
-          label.includes(
-            "back"
-          )
-        ) {
+        /*
+        Prefer rear-facing cameras.
+        */
 
+        if (label.includes("back")) {
           score += 100;
-
         }
 
 
-        if (
-          label.includes(
-            "rear"
-          )
-        ) {
-
+        if (label.includes("rear")) {
           score += 100;
-
         }
 
 
-        if (
-          label.includes(
-            "wide"
-          )
-        ) {
+        /*
+        Prefer standard wide camera.
+        */
 
+        if (label.includes("wide")) {
           score += 30;
-
         }
 
 
-        if (
-          label.includes(
-            "dual"
-          )
-        ) {
-
+        if (label.includes("dual")) {
           score += 15;
-
         }
 
 
-        if (
-          label.includes(
-            "front"
-          )
-        ) {
+        /*
+        Avoid selfie/front camera.
+        */
 
+        if (label.includes("front")) {
           score -= 200;
-
         }
 
 
-        if (
-          label.includes(
-            "selfie"
-          )
-        ) {
-
+        if (label.includes("selfie")) {
           score -= 200;
-
         }
 
 
-        if (
-          label.includes(
-            "ultra"
-          )
-        ) {
+        /*
+        Avoid specialty lenses
+        when possible.
+        */
 
+        if (label.includes("ultra")) {
           score -= 80;
-
         }
 
 
-        if (
-          label.includes(
-            "telephoto"
-          )
-        ) {
-
+        if (label.includes("telephoto")) {
           score -= 80;
-
         }
 
 
-        if (
-          label.includes(
-            "macro"
-          )
-        ) {
-
+        if (label.includes("macro")) {
           score -= 80;
-
         }
 
 
         return {
 
-          camera:
-            camera,
+          camera: camera,
 
-          score:
-            score
+          score: score
 
         };
 
@@ -1222,12 +1063,9 @@ function chooseBestCamera(
 
   ranked.sort(
 
-    function(a,b) {
+    function(a, b) {
 
-      return (
-        b.score -
-        a.score
-      );
+      return b.score - a.score;
 
     }
 
@@ -1240,9 +1078,9 @@ function chooseBestCamera(
 
 
 
-/* ===============================
+/* =========================================
    START SCANNER
-   =============================== */
+   ========================================= */
 
 async function startScanner() {
 
@@ -1262,6 +1100,10 @@ async function startScanner() {
   try {
 
 
+    /*
+    Stop existing camera if necessary.
+    */
+
     if (
       scannerRunning &&
       scanner
@@ -1277,22 +1119,28 @@ async function startScanner() {
       catch(error) {}
 
 
-      scannerRunning =
-        false;
+      scannerRunning = false;
 
     }
 
 
 
-    scanner =
-      new Html5Qrcode(
-        "reader"
-      );
+    /*
+    Create scanner.
+    */
 
+    scanner =
+      new Html5Qrcode("reader");
+
+
+
+    /*
+    Get available cameras.
+    */
 
     const cameras =
-      await Html5Qrcode
-        .getCameras();
+      await Html5Qrcode.getCameras();
+
 
 
     if (
@@ -1309,19 +1157,19 @@ async function startScanner() {
 
 
 
+    /*
+    Choose preferred rear camera.
+    */
+
     const bestCamera =
-      chooseBestCamera(
-        cameras
-      );
+      chooseBestCamera(cameras);
 
 
     let cameraConfig;
 
 
 
-    if (
-      bestCamera
-    ) {
+    if (bestCamera) {
 
 
       cameraConfig =
@@ -1329,11 +1177,8 @@ async function startScanner() {
 
 
       document
-        .getElementById(
-          "cameraInfo"
-        )
+        .getElementById("cameraInfo")
         .textContent =
-
         "Camera: "
         +
         (
@@ -1356,15 +1201,17 @@ async function startScanner() {
 
 
       document
-        .getElementById(
-          "cameraInfo"
-        )
+        .getElementById("cameraInfo")
         .textContent =
         "Camera: Rear / Environment";
 
     }
 
 
+
+    /*
+    Full-frame QR scanning.
+    */
 
     const scanConfig = {
 
@@ -1385,7 +1232,7 @@ async function startScanner() {
       function(errorMessage) {
 
         /*
-        Normal failed frames are ignored.
+        Normal frame misses are expected.
         Scanner continues automatically.
         */
 
@@ -1394,7 +1241,9 @@ async function startScanner() {
     );
 
 
+
     scannerRunning = true;
+
 
 
     setStatus(
@@ -1410,18 +1259,14 @@ async function startScanner() {
   catch(error) {
 
 
-    console.error(
-      error
-    );
+    console.error(error);
 
 
     scannerRunning = false;
 
 
     document
-      .getElementById(
-        "cameraInfo"
-      )
+      .getElementById("cameraInfo")
       .textContent =
       "Camera unavailable";
 
@@ -1442,9 +1287,9 @@ async function startScanner() {
 
 
 
-/* ===============================
+/* =========================================
    STOP CAMERA
-   =============================== */
+   ========================================= */
 
 async function stopScanner() {
 
@@ -1469,9 +1314,7 @@ async function stopScanner() {
 
 
     document
-      .getElementById(
-        "cameraInfo"
-      )
+      .getElementById("cameraInfo")
       .textContent =
       "Camera stopped";
 
@@ -1488,9 +1331,7 @@ async function stopScanner() {
 
   catch(error) {
 
-    console.error(
-      error
-    );
+    console.error(error);
 
   }
 
@@ -1498,9 +1339,9 @@ async function stopScanner() {
 
 
 
-/* ===============================
+/* =========================================
    RESTART CAMERA
-   =============================== */
+   ========================================= */
 
 async function restartScanner() {
 
@@ -1514,9 +1355,9 @@ async function restartScanner() {
 
 
 
-/* ===============================
+/* =========================================
    MANUAL NIIN
-   =============================== */
+   ========================================= */
 
 function submitManualNIIN() {
 
@@ -1525,9 +1366,7 @@ function submitManualNIIN() {
     String(
 
       document
-        .getElementById(
-          "manualNIIN"
-        )
+        .getElementById("manualNIIN")
         .value ||
 
       ""
@@ -1539,9 +1378,7 @@ function submitManualNIIN() {
     );
 
 
-  if (
-    !niin
-  ) {
+  if (!niin) {
 
 
     setStatus(
@@ -1556,17 +1393,21 @@ function submitManualNIIN() {
   }
 
 
-  openInventoryItem(
-    niin
-  );
+  /*
+  Manual entry goes through
+  the exact same inventory route
+  as a QR scan.
+  */
+
+  openInventoryItem(niin);
 
 }
 
 
 
-/* ===============================
+/* =========================================
    STATUS
-   =============================== */
+   ========================================= */
 
 function setStatus(
   main,
@@ -1577,36 +1418,26 @@ function setStatus(
 
   const panel =
     document
-      .getElementById(
-        "statusPanel"
-      );
+      .getElementById("statusPanel");
 
 
   document
-    .getElementById(
-      "statusMain"
-    )
+    .getElementById("statusMain")
     .textContent =
     main;
 
 
   document
-    .getElementById(
-      "statusSub"
-    )
+    .getElementById("statusSub")
     .textContent =
     sub;
 
 
-  if (
-    success
-  ) {
+  if (success) {
 
     panel
       .classList
-      .add(
-        "success"
-      );
+      .add("success");
 
   }
 
@@ -1614,9 +1445,7 @@ function setStatus(
 
     panel
       .classList
-      .remove(
-        "success"
-      );
+      .remove("success");
 
   }
 
