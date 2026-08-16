@@ -25,6 +25,7 @@
       --panel: #0c1f31;
       --panel2: #10283d;
       --white: #ffffff;
+      --light: #eef1f4;
     }
 
     * {
@@ -56,19 +57,22 @@
           var(--navy),
           var(--navy2)
         );
+
       border-bottom: 4px solid var(--red);
+
       padding:
         max(14px, env(safe-area-inset-top))
         18px
         14px;
+
       display: flex;
       align-items: center;
       gap: 14px;
     }
 
     .logo {
-      width: 76px;
-      height: 76px;
+      width: 74px;
+      height: 74px;
       border-radius: 50%;
       object-fit: contain;
       flex-shrink: 0;
@@ -100,14 +104,19 @@
 
 
     /* =========================
-       MAIN
+       MAIN PAGE
        ========================= */
 
     .page {
       max-width: 680px;
       margin: 0 auto;
-      padding: 20px 16px 30px;
+      padding: 20px 16px 34px;
     }
+
+
+    /* =========================
+       INTRO
+       ========================= */
 
     .scanIntro {
       text-align: center;
@@ -144,13 +153,14 @@
       border-radius: 16px;
       overflow: hidden;
       border: 1px solid #425466;
+
       box-shadow:
         0 8px 30px rgba(0,0,0,.35);
     }
 
     #reader {
       width: 100%;
-      min-height: 340px;
+      min-height: 330px;
       background: #000;
     }
 
@@ -158,7 +168,10 @@
       object-fit: cover !important;
     }
 
-    /* green corner brackets */
+
+    /* =========================
+       SCAN CORNERS
+       ========================= */
 
     .corner {
       position: absolute;
@@ -202,50 +215,6 @@
 
 
     /* =========================
-       STATUS
-       ========================= */
-
-    .statusPanel {
-      margin-top: 16px;
-      background:
-        linear-gradient(
-          135deg,
-          var(--panel),
-          var(--panel2)
-        );
-      border-top: 3px solid var(--red);
-      border-radius: 11px;
-      padding: 17px;
-      text-align: center;
-    }
-
-    .statusMain {
-      color: var(--green);
-      font-size: 22px;
-      font-weight: 900;
-    }
-
-    .statusSub {
-      margin-top: 5px;
-      color: #c5d0d8;
-      font-size: 14px;
-    }
-
-    .success {
-      background:
-        linear-gradient(
-          135deg,
-          #0e4a28,
-          #113c28
-        );
-    }
-
-    .success .statusMain {
-      color: #9aff7b;
-    }
-
-
-    /* =========================
        CONTROLS
        ========================= */
 
@@ -279,12 +248,154 @@
           #315a71,
           #3e697d
         );
+
       color: white;
     }
 
 
     /* =========================
-       SECURITY FOOTER
+       MANUAL NIIN
+       ========================= */
+
+    .manualPanel {
+      margin-top: 16px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #0c1f31,
+          #10283d
+        );
+
+      border: 1px solid #314a5f;
+      border-radius: 11px;
+      padding: 15px;
+    }
+
+    .manualLabel {
+      font-size: 12px;
+      font-weight: 800;
+      color: #9fb0bf;
+      margin-bottom: 8px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+
+    #manualNIIN {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #41586b;
+      background: #ffffff;
+      color: #10243a;
+      font-size: 18px;
+      box-sizing: border-box;
+    }
+
+    #manualNIIN:focus {
+      outline: none;
+      border-color: var(--green);
+      box-shadow:
+        0 0 0 2px rgba(99,209,63,.15);
+    }
+
+    .manualButton {
+      width: 100%;
+      margin-top: 10px;
+      padding: 14px;
+
+      border: none;
+      border-radius: 8px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #315a71,
+          #3e697d
+        );
+
+      color: white;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+
+    /* =========================
+       STATUS
+       ========================= */
+
+    .statusPanel {
+      margin-top: 16px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--panel),
+          var(--panel2)
+        );
+
+      border-top: 3px solid var(--red);
+      border-radius: 11px;
+      padding: 17px;
+      text-align: center;
+    }
+
+    .statusMain {
+      color: var(--green);
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .statusSub {
+      margin-top: 5px;
+      color: #c5d0d8;
+      font-size: 14px;
+    }
+
+    .success {
+      background:
+        linear-gradient(
+          135deg,
+          #0e4a28,
+          #113c28
+        );
+    }
+
+    .success .statusMain {
+      color: #9aff7b;
+    }
+
+
+    /* =========================
+       RESULT PANEL
+       ========================= */
+
+    .resultPanel {
+      display: none;
+      margin-top: 16px;
+      background: #f4f7f9;
+      color: #10243a;
+      border-radius: 10px;
+      padding: 16px;
+      border-left: 5px solid var(--green);
+    }
+
+    .resultLabel {
+      font-size: 11px;
+      font-weight: 800;
+      color: #6c7a86;
+      text-transform: uppercase;
+    }
+
+    #resultNIIN {
+      font-size: 25px;
+      font-weight: 900;
+      margin-top: 3px;
+    }
+
+
+    /* =========================
+       FOOTER
        ========================= */
 
     .footer {
@@ -292,34 +403,12 @@
       text-align: center;
       color: #8295a5;
       font-size: 12px;
+
       padding-bottom:
-        max(8px, env(safe-area-inset-bottom));
-    }
-
-
-    /* =========================
-       HIDE UGLY LIBRARY LABELS
-       ========================= */
-
-    #reader__dashboard_section_csr span,
-    #reader__dashboard_section_swaplink,
-    #reader__status_span {
-      font-family: Arial, Helvetica, sans-serif !important;
-    }
-
-    #reader button {
-      background: #315a71 !important;
-      color: white !important;
-      border: none !important;
-      border-radius: 8px !important;
-      padding: 12px !important;
-      font-weight: 800 !important;
-    }
-
-    #reader select {
-      padding: 10px !important;
-      border-radius: 7px !important;
-      margin: 6px 0 !important;
+        max(
+          8px,
+          env(safe-area-inset-bottom)
+        );
     }
 
 
@@ -327,11 +416,11 @@
        MOBILE
        ========================= */
 
-    @media (max-width: 520px) {
+    @media(max-width:520px) {
 
       .logo {
-        width: 66px;
-        height: 66px;
+        width: 64px;
+        height: 64px;
       }
 
       .title {
@@ -347,7 +436,7 @@
       }
 
       #reader {
-        min-height: 300px;
+        min-height: 290px;
       }
 
       .controlRow {
@@ -400,7 +489,7 @@
 
 
   <!-- =========================
-       SCAN INTRO
+       INTRO
        ========================= -->
 
   <div class="scanIntro">
@@ -414,7 +503,7 @@
     </div>
 
     <div class="scanSubtitle">
-      Point the rear camera at an inventory QR code
+      Rear camera opens automatically
     </div>
 
   </div>
@@ -439,23 +528,57 @@
 
 
   <!-- =========================
-       CONTROLS
+       CAMERA CONTROLS
        ========================= -->
 
   <div class="controlRow">
 
     <button
       class="secondaryButton"
-      onclick="requestCameraAgain()"
+      onclick="startScanner()"
     >
-      📷 CAMERA
+      📷 START CAMERA
     </button>
 
     <button
       class="restartButton"
-      onclick="startScanner()"
+      onclick="restartScanner()"
     >
       ↻ RESTART SCANNER
+    </button>
+
+  </div>
+
+
+
+  <!-- =========================
+       MANUAL ENTRY
+       ========================= -->
+
+  <div class="manualPanel">
+
+    <div class="manualLabel">
+      Or Enter NIIN Manually
+    </div>
+
+    <input
+      type="text"
+      id="manualNIIN"
+      placeholder="Enter NIIN"
+      inputmode="numeric"
+      autocomplete="off"
+      onkeydown="
+        if(event.key === 'Enter') {
+          submitManualNIIN();
+        }
+      "
+    >
+
+    <button
+      class="manualButton"
+      onclick="submitManualNIIN()"
+    >
+      FIND ITEM
     </button>
 
   </div>
@@ -482,7 +605,27 @@
       id="statusSub"
       class="statusSub"
     >
-      Scanning happens automatically
+      Point the rear camera at an inventory QR
+    </div>
+
+  </div>
+
+
+
+  <!-- =========================
+       RESULT
+       ========================= -->
+
+  <div
+    id="resultPanel"
+    class="resultPanel"
+  >
+
+    <div class="resultLabel">
+      NIIN Detected
+    </div>
+
+    <div id="resultNIIN">
     </div>
 
   </div>
@@ -490,7 +633,7 @@
 
 
   <div class="footer">
-    🔒 Secure • Encrypted Connection
+    🔒 Secure • Rainier DUSTOFF Inventory Scanner
   </div>
 
 
@@ -509,21 +652,30 @@ let scanComplete = false;
    EXTRACT NIIN
    ========================================= */
 
-function extractNIIN(data) {
+function extractNIIN(
+  data
+) {
 
   let niin = "";
+
 
   try {
 
     const url =
-      new URL(data);
+      new URL(
+        data
+      );
+
 
     niin =
-      url.searchParams.get(
-        "niin"
-      ) || "";
+      url
+        .searchParams
+        .get(
+          "niin"
+        ) || "";
 
   }
+
 
   catch(error) {
 
@@ -536,11 +688,13 @@ function extractNIIN(data) {
 
 
   niin =
-    String(niin)
-      .replace(
-        /[^0-9]/g,
-        ""
-      );
+    String(
+      niin
+    )
+    .replace(
+      /[^0-9]/g,
+      ""
+    );
 
 
   return niin;
@@ -550,16 +704,60 @@ function extractNIIN(data) {
 
 
 /* =========================================
-   SCAN SUCCESS
+   DISPLAY RESULT
+   ========================================= */
+
+function showNIIN(
+  niin
+) {
+
+  localStorage.setItem(
+    "lastScannedNIIN",
+    niin
+  );
+
+
+  document
+    .getElementById(
+      "resultNIIN"
+    )
+    .textContent =
+    niin;
+
+
+  document
+    .getElementById(
+      "resultPanel"
+    )
+    .style
+    .display =
+    "block";
+
+
+  setStatus(
+    "ITEM FOUND",
+    "NIIN: " + niin,
+    true
+  );
+
+}
+
+
+
+/* =========================================
+   QR SCAN SUCCESS
    ========================================= */
 
 function onScanSuccess(
-  decodedText,
-  decodedResult
+  decodedText
 ) {
 
-  if (scanComplete) {
+  if (
+    scanComplete
+  ) {
+
     return;
+
   }
 
 
@@ -569,15 +767,18 @@ function onScanSuccess(
     );
 
 
-  if (!niin) {
+  if (
+    !niin
+  ) {
 
     setStatus(
       "QR DETECTED",
-      "No NIIN found in this code.",
+      "No NIIN was found in this QR code.",
       false
     );
 
     return;
+
   }
 
 
@@ -585,129 +786,258 @@ function onScanSuccess(
     true;
 
 
-  localStorage.setItem(
-    "lastScannedNIIN",
+  showNIIN(
     niin
   );
-
-
-  setStatus(
-    "ITEM FOUND",
-    "NIIN: " + niin,
-    true
-  );
-
-
-  /*
-  NEXT STEP:
-  This is where we will return
-  the NIIN to the Google inventory app.
-  */
 
 }
 
 
 
 /* =========================================
-   START SCANNER
+   START REAR CAMERA
    ========================================= */
 
-function startScanner() {
+async function startScanner() {
 
   scanComplete =
     false;
 
 
+  document
+    .getElementById(
+      "resultPanel"
+    )
+    .style
+    .display =
+    "none";
+
+
   setStatus(
-    "READY TO SCAN",
-    "Scanning happens automatically",
+    "STARTING CAMERA",
+    "Opening rear camera...",
     false
   );
 
 
-  if (scanner) {
+  try {
 
-    try {
 
-      scanner.clear();
+    if (
+      scanner
+    ) {
+
+      try {
+
+        await scanner.stop();
+
+      }
+
+      catch(error) {}
+
+
+      try {
+
+        await scanner.clear();
+
+      }
+
+      catch(error) {}
 
     }
 
-    catch(error) {}
 
-  }
+    scanner =
+      new Html5Qrcode(
+        "reader"
+      );
 
 
-  scanner =
-    new Html5QrcodeScanner(
+    /*
+    Prefer rear/environment camera.
+    */
 
-      "reader",
 
-      {
+    const cameraConfig = {
 
-        fps: 12,
+      facingMode: {
 
-        qrbox: function(
+        ideal:
+          "environment"
+
+      }
+
+    };
+
+
+    const scanConfig = {
+
+      fps:
+        15,
+
+
+      qrbox:
+        function(
           width,
           height
         ) {
 
+
           const size =
             Math.floor(
+
               Math.min(
                 width,
                 height
-              ) * .72
+              )
+
+              * .72
+
             );
+
 
           return {
 
-            width: size,
+            width:
+              size,
 
-            height: size
+            height:
+              size
 
           };
 
         },
 
-        rememberLastUsedCamera:
-          true,
 
-        showTorchButtonIfSupported:
-          true,
+      aspectRatio:
+        1.333333,
 
-        showZoomSliderIfSupported:
-          true,
 
-        supportedScanTypes: [
+      disableFlip:
+        true
 
-          Html5QrcodeScanType
-            .SCAN_TYPE_CAMERA
+    };
 
-        ]
 
-      },
+    await scanner.start(
 
-      false
+      cameraConfig,
+
+      scanConfig,
+
+      onScanSuccess,
+
+      function(errorMessage) {
+
+        /*
+        Normal scanning failures
+        are intentionally ignored.
+        */
+
+      }
 
     );
 
 
-  scanner.render(
-    onScanSuccess
-  );
+    setStatus(
+      "READY TO SCAN",
+      "Rear camera active • Point at inventory QR",
+      false
+    );
+
+
+  }
+
+
+  catch(error) {
+
+
+    console.error(
+      error
+    );
+
+
+    setStatus(
+      "CAMERA ACCESS REQUIRED",
+      "Allow camera permission in Safari, then tap START CAMERA.",
+      false
+    );
+
+
+  }
 
 }
 
 
 
 /* =========================================
-   CAMERA PERMISSION
+   RESTART SCANNER
    ========================================= */
 
-function requestCameraAgain() {
+async function restartScanner() {
 
-  startScanner();
+  scanComplete =
+    false;
+
+
+  await startScanner();
+
+}
+
+
+
+/* =========================================
+   MANUAL NIIN
+   ========================================= */
+
+function submitManualNIIN() {
+
+
+  let niin =
+    String(
+
+      document
+        .getElementById(
+          "manualNIIN"
+        )
+        .value ||
+
+      ""
+
+    );
+
+
+  niin =
+    niin.replace(
+      /[^0-9]/g,
+      ""
+    );
+
+
+  if (
+    !niin
+  ) {
+
+
+    setStatus(
+      "ENTER NIIN",
+      "Type a valid NIIN and try again.",
+      false
+    );
+
+
+    return;
+
+  }
+
+
+  scanComplete =
+    true;
+
+
+  showNIIN(
+    niin
+  );
 
 }
 
@@ -723,45 +1053,50 @@ function setStatus(
   success
 ) {
 
+
   const panel =
-    document.getElementById(
-      "statusPanel"
-    );
+    document
+      .getElementById(
+        "statusPanel"
+      );
 
 
-  const mainEl =
-    document.getElementById(
+  document
+    .getElementById(
       "statusMain"
-    );
-
-
-  const subEl =
-    document.getElementById(
-      "statusSub"
-    );
-
-
-  mainEl.textContent =
+    )
+    .textContent =
     main;
 
 
-  subEl.textContent =
+  document
+    .getElementById(
+      "statusSub"
+    )
+    .textContent =
     sub;
 
 
-  if (success) {
+  if (
+    success
+  ) {
 
-    panel.classList.add(
-      "success"
-    );
+    panel
+      .classList
+      .add(
+        "success"
+      );
 
   }
 
+
   else {
 
-    panel.classList.remove(
-      "success"
-    );
+    panel
+      .classList
+      .remove(
+        "success"
+      );
 
   }
 
@@ -770,15 +1105,20 @@ function setStatus(
 
 
 /* =========================================
-   LOAD
+   AUTO START
    ========================================= */
 
-window.onload =
+window.addEventListener(
+
+  "load",
+
   function() {
 
     startScanner();
 
-  };
+  }
+
+);
 
 
 </script>
